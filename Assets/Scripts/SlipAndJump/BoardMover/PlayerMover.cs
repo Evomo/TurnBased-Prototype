@@ -2,36 +2,27 @@
 using System.Collections;
 using ElRaccoone.Tweens;
 using MotionAI.Core.POCO;
+using SlipAndJump.Board;
 using UnityEngine;
 
 namespace SlipAndJump {
-    public class PlayerAnimal : MonoBehaviour {
-        public MapGraph board;
+    public class PlayerMover : BoardMover.BoardMover {
         public AnimationCurve curve;
 
-        public PlatformNode currentNode;
-        public MapDirections facing;
-
+        public bool canMove;
         [Range(0.1f, 1)] public float jumpDuration = 0.5f;
         [Range(2, 5)] public float jumpHeight = 3;
 
-        public void Start() {
-            board = FindObjectOfType<MapGraph>();
+        public override void Start() {
+            base.Start();
+            canMove = true;
             currentNode = board.StartNode;
             transform.position = currentNode.landingPosition.position;
+
         }
         
-        public PlatformNode ForwardPlatform() {
-            Vector2Int coordinates = currentNode.coordinates;
-            Vector2Int delta = DirectionHelpers.DirectionsDelta(facing);
-
-            return board.GetPlatform(coordinates + delta);
-        }
-
-
         public void MoveForward() {
             PlatformNode next = ForwardPlatform();
-
             if (next) {
                 StartCoroutine(JumpTo(next));
                 currentNode = next;
@@ -45,6 +36,7 @@ namespace SlipAndJump {
         }
 
         IEnumerator JumpTo(PlatformNode next) {
+            canMove = false;
             float time = 0f;
             Vector3 start = transform.position;
             Vector3 end = next.landingPosition.position;
@@ -61,6 +53,8 @@ namespace SlipAndJump {
 
                 yield return null;
             }
+
+            canMove = true;
         }
     }
 }

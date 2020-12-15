@@ -1,24 +1,48 @@
-﻿using MotionAI.Core.Controller;
+﻿using System;
+using MotionAI.Core.Controller;
 using MotionAI.Core.Models.Generated;
 using MotionAI.Core.POCO;
+using SlipAndJump.Commands;
+using UnityEngine;
 
 namespace SlipAndJump {
     public class PlayerController : MotionAIController {
-        public PlayerAnimal player;
+        public PlayerMover player;
 
+        [SerializeField] private CommandInvoker _invoker; 
+
+
+        public void TurnLeft() {
+            player.Turn(true);
+        }
+
+        public void TurnRight() {
+            player.Turn(false);
+        }
 
         protected override void HandleMovement(EvoMovement msg) {
+            if (player.canMove) {
+                
+            DelegateCommand.VoidDel toEnqueue = null;
             switch (msg.typeID) {
                 case MovementEnum.turn_90_left:
-                    player.Turn(true);
+                    toEnqueue = TurnLeft;
+                    // player.Turn(true);
                     break;
                 case MovementEnum.turn_90_right:
-                    player.Turn(false);
+                    toEnqueue = TurnRight;
+                    // player.Turn(false);
                     break;
                 case MovementEnum.hop_single:
-                    player.MoveForward();
+                    toEnqueue = player.MoveForward;
+                    // player.MoveForward();
                     break;
             }
-        }
+
+            _invoker.EnqueueCommand(new DelegateCommand(toEnqueue));
+            _invoker.RunCommands();
+            }
+
+            }
     }
 }
