@@ -1,37 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using MotionAI.Core.Util;
+﻿using System.Collections.Generic;
+using SlipAndJump.Board;
 using UnityEngine;
 
 namespace SlipAndJump.Commands {
     [DisallowMultipleComponent]
-    public class CommandInvoker : Singleton<CommandInvoker> {
+    [RequireComponent(typeof(MapBoard))]
+    public class TurnHandler : MonoBehaviour {
         private Queue<ICommand> _commandBuffer;
+        private MapBoard _board;
+        public int turnNumber;
 
         private void Awake() {
             _commandBuffer = new Queue<ICommand>();
+            _board = GetComponent<MapBoard>();
         }
 
 
-        public void RunCommands() {
+        public void ProcessTurn() {
             while (_commandBuffer.Count > 0) {
                 ICommand c = _commandBuffer.Dequeue();
                 c.Execute();
             }
+
+            _board.onTurn.Invoke();
+            turnNumber++;
         }
 
-        private void Update() {
-           RunCommands(); 
-        }
 
         public void EnqueueCommand(ICommand command) {
             if (command != null) {
                 _commandBuffer.Enqueue(command);
             }
-        }
-
-        public static void AddCommand(ICommand command) {
-            CommandInvoker.Instance.EnqueueCommand(command);
         }
     }
 }
