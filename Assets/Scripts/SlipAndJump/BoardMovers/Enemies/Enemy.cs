@@ -36,8 +36,7 @@ namespace SlipAndJump.BoardMovers.Enemies {
         }
 
         public void CollisionBounce() {
-            hitpoints--;
-            if (hitpoints > 0) {
+            if (--hitpoints > 0) {
                 facing = DirectionHelpers.Inverse(facing);
                 PrepareTurn();
             }

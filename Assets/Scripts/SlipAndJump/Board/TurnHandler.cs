@@ -52,12 +52,16 @@ namespace SlipAndJump.Commands {
                     if (e1 != e && e.currentNode == e1.currentNode && !processed.Contains(e)) {
                         processed.Add(e);
                         e.CollisionBounce();
-                        Debug.Log($"{e.currentNode.Coordinates} - {e1.currentNode.Coordinates}");
                     }
                 }
             }
 
+            bool shouldWait = _commandBuffer.Count > 0;
             EmptyQueue();
+            if (shouldWait) {
+                yield return new WaitForSeconds(turnDuration);
+            }
+
             _board.onTurn.Invoke();
         }
 

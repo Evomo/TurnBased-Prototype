@@ -9,6 +9,7 @@ namespace SlipAndJump.BoardMovers {
             canMove = true;
             currentNode = board.StartNode;
             transform.position = currentNode.landingPosition.position;
+            board.onTurn.AddListener(() => canMove = true);
         }
 
         public void Turn(bool ccw) {
@@ -22,7 +23,7 @@ namespace SlipAndJump.BoardMovers {
             canMove = false;
             float time = 0f;
             Quaternion start = transform.rotation;
-            Quaternion end = start * Quaternion.Euler(0,  ccw ? -90 : 90,0);
+            Quaternion end = start * Quaternion.Euler(0, ccw ? -90 : 90, 0);
 
 
             while (time < JumpDuration) {
@@ -36,10 +37,11 @@ namespace SlipAndJump.BoardMovers {
                 yield return null;
             }
 
-            canMove = true;
+            // canMove = true;
         }
 
         public void HandleCollision() {
+            //TODO
             Debug.Log("Collided ");
         }
     }
