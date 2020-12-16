@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using SlipAndJump.BoardMovers;
+using SlipAndJump.BoardMovers.Enemies;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,7 +10,7 @@ namespace SlipAndJump.Board {
     public class MapBoard : MonoBehaviour {
         public PlatformNode[][] platforms;
         public PlayerMover player;
-        public List<BaseMover> entities;
+        public List<Enemy> enemies;
         public List<SpawnerNode> spawnerNodes;
         [SerializeField] private PlatformNode boardPrefab;
         [SerializeField] private SpawnerNode spawnerPrefab;
@@ -26,7 +27,7 @@ namespace SlipAndJump.Board {
 
         void Awake() {
             onTurn = new UnityEvent();
-            entities = new List<BaseMover>();
+            enemies = new List<Enemy>();
             platforms = new PlatformNode[mapSize][];
             SpawnPlatforms();
             SetNeighbors();

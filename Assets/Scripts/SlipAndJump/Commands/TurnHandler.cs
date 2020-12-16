@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using MotionAI.Core.Util;
 using SlipAndJump.Board;
+using SlipAndJump.BoardMovers.Enemies;
 using UnityEngine;
 
 namespace SlipAndJump.Commands {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(MapBoard))]
-    public class TurnHandler : MonoBehaviour {
+    public class TurnHandler : Singleton<TurnHandler> {
         private Queue<ICommand> _commandBuffer;
         private MapBoard _board;
         public int turnNumber;
+        [Range(0.1f, .5f)] public float turnDuration = 0.5f;
 
         private void Awake() {
             _commandBuffer = new Queue<ICommand>();
@@ -16,16 +20,46 @@ namespace SlipAndJump.Commands {
         }
 
 
-        public void ProcessTurn() {
+        public void EmptyQueue() {
             while (_commandBuffer.Count > 0) {
-                ICommand c = _commandBuffer.Dequeue();
-                c.Execute();
+                try {
+                    ICommand c = _commandBuffer.Dequeue();
+                    c.Execute();
+                }
+                catch (MissingReferenceException) { }
             }
+        }
 
-            _board.onTurn.Invoke();
+        public void ProcessTurn() {
+            EmptyQueue();
+            StartCoroutine(CheckCollisions());
             turnNumber++;
         }
 
+
+        private IEnumerator CheckCollisions() {
+            yield return new WaitForSeconds(turnDuration);
+            foreach (Enemy enemy in _board.enemies) {
+                if (enemy.currentNode == _board.player.currentNode) {
+                    EnqueueCommand(new DelegateCommand(enemy.HandleDestruction));
+                    EnqueueCommand(new DelegateCommand(_board.player.HandleCollision));
+                }
+            }
+
+            HashSet<Enemy> processed = new HashSet<Enemy>();
+            foreach (Enemy e1 in _board.enemies) {
+                foreach (Enemy e in _board.enemies) {
+                    if (e1 != e && e.currentNode == e1.currentNode && !processed.Contains(e)) {
+                        processed.Add(e);
+                        e.facing = DirectionHelpers.Inverse(e.facing);
+                        Debug.Log($"{e.currentNode.Coordinates} - {e1.currentNode.Coordinates}");
+                    }
+                }
+            }
+
+            EmptyQueue();
+            _board.onTurn.Invoke();
+        }
 
         public void EnqueueCommand(ICommand command) {
             if (command != null) {

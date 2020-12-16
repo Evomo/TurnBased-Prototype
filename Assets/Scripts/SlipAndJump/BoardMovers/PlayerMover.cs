@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace SlipAndJump.BoardMovers {
-    public class PlayerMover : BoardMovers.BaseMover {
+    public class PlayerMover : BaseMover {
         public override void Start() {
             base.Start();
             canMove = true;
@@ -25,11 +25,11 @@ namespace SlipAndJump.BoardMovers {
             Quaternion end = start * Quaternion.Euler(0,  ccw ? -90 : 90,0);
 
 
-            while (time < jumpDuration) {
+            while (time < JumpDuration) {
                 time += Time.deltaTime;
 
 
-                float linearT = time / jumpDuration;
+                float linearT = time / JumpDuration;
 
                 transform.rotation = Quaternion.Lerp(start, end, linearT);
 
@@ -37,6 +37,10 @@ namespace SlipAndJump.BoardMovers {
             }
 
             canMove = true;
+        }
+
+        public void HandleCollision() {
+            Debug.Log("Collided ");
         }
     }
 }

@@ -42,4 +42,8 @@ public static class DirectionHelpers {
 
         return toReturn;
     }
+
+    public static MapDirections Inverse(MapDirections current) {
+        return (MapDirections) (((int) current + 2 + 4) % 4);
+    }
 }

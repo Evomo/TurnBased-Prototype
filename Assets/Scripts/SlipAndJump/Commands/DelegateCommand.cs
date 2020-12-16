@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
+using UnityEngine;
 
 namespace SlipAndJump.Commands {
     public class DelegateCommand : ICommand {
@@ -9,8 +11,9 @@ namespace SlipAndJump.Commands {
         public DelegateCommand(VoidDel method) {
             toExecute = method;
         }
+
         public void Execute() {
-            toExecute();
-        }
+                toExecute();
+       }
     }
 }

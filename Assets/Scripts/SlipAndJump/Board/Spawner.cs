@@ -9,8 +9,8 @@ namespace SlipAndJump.Board {
     public class Spawner : MonoBehaviour {
         private MapBoard _board;
         private TurnHandler _turnHandler;
-        [SerializeField]
-        private List<Enemy> enemies;
+        [SerializeField] private List<Enemy> enemies;
+
         private void Start() {
             _board = GetComponent<MapBoard>();
             _turnHandler = GetComponent<TurnHandler>();
@@ -18,9 +18,9 @@ namespace SlipAndJump.Board {
         }
 
         private void Spawn() {
-            if (_turnHandler.turnNumber % 10 == 0) {
-            _board.spawnerNodes.RandomElement().Spawn(enemies.RandomElement());
-                
+            if (_turnHandler.turnNumber % 2 == 0) {
+               Enemy e =  _board.spawnerNodes.RandomElement().Spawn(enemies.RandomElement());
+               _board.enemies.Add(e);
             }
         }
     }

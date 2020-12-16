@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 991076346}
-  entities: []
+  enemies: []
   spawnerNodes: []
   boardPrefab: {fileID: -2887842388192419509, guid: 9b93133620079494c90637d45f2cbbb8, type: 3}
   spawnerPrefab: {fileID: 4926364214887493490, guid: 5d13640b631c80b47a7450a9883f2c35, type: 3}
@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnNumber: 0
+  turnDuration: 0.5
 --- !u!114 &303281548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +264,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 7116534983652340437, guid: befb659a081ad63479e22b2e79516847, type: 3}
+  - {fileID: 2738935291175892243, guid: befb659a081ad63479e22b2e79516847, type: 3}
+  - {fileID: 6058605906190178989, guid: df9ed8dd8cea4514f8a1a740929e0e57, type: 3}
+  - {fileID: 1519602264596122796, guid: 8f3297759f377634cbebef2c117c3863, type: 3}
 --- !u!114 &991076346 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8387908807302011052, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
@@ -514,5 +517,9 @@ PrefabInstance:
       propertyPath: board
       value: 
       objectReference: {fileID: 303281545}
+    - target: {fileID: 8387908807302011052, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: movementPattern
+      value: 
+      objectReference: {fileID: 11400000, guid: 0981bedd124089540b76c7f552cc1fa1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}

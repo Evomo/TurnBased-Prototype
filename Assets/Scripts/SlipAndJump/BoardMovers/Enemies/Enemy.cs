@@ -1,8 +1,36 @@
-﻿namespace SlipAndJump.BoardMovers.Enemies {
+﻿using System.Security.Cryptography;
+using SlipAndJump.Board;
+using SlipAndJump.Commands;
+using UnityEngine;
+using UnityEngine.XR;
+
+namespace SlipAndJump.BoardMovers.Enemies {
     public class Enemy : BaseMover {
+        public PlatformNode next;
+
         public override void Start() {
             base.Start();
-            board.onTurn.AddListener((() => this.Move()));
+            board.onTurn.AddListener(() => PrepareTurn());
+        }
+
+        public void PrepareTurn() {
+            next = GetPlatformAfterMovement();
+            TurnHandler.Instance.EnqueueCommand(new DelegateCommand(Move));
+        }
+
+        public override void Move() {
+            if (next) {
+                StartCoroutine(JumpTo(next));
+                currentNode = next;
+            }
+            else {
+                HandleDestruction();
+            }
+        }
+
+        public void HandleDestruction() {
+            board.enemies.Remove(this);
+            Destroy(gameObject);
         }
     }
 }
