@@ -4,6 +4,9 @@ namespace SlipAndJump.Board {
     public class BoardNode : MonoBehaviour {
         public Transform landingPosition;
 
-        public virtual Vector2Int Coordinates => new Vector2Int(-1, -1);
+        public virtual Vector2Int Coordinates {
+            get { return new Vector2Int(-1, -1); }
+            set {}
+        }
     }
 }

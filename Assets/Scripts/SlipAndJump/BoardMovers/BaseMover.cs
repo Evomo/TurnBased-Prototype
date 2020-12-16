@@ -31,7 +31,7 @@ namespace SlipAndJump.BoardMovers {
             }
             else {
                 PlatformNode bn = currentNode as PlatformNode;
-                Vector2Int coordinates = bn.coordinates;
+                Vector2Int coordinates = bn.Coordinates;
                 foreach (MovementOptions currentMovement in movementPattern.moves) {
                     Vector2Int delta = currentMovement == MovementOptions.Forward
                         ? DirectionHelpers.DirectionsDelta(facing)

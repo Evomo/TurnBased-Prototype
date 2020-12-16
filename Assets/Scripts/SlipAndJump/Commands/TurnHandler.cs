@@ -41,7 +41,7 @@ namespace SlipAndJump.Commands {
             yield return new WaitForSeconds(turnDuration);
             foreach (Enemy enemy in _board.enemies) {
                 if (enemy.currentNode == _board.player.currentNode) {
-                    EnqueueCommand(new DelegateCommand(enemy.HandleDestruction));
+                    EnqueueCommand(new DelegateCommand(enemy.HandleDestroy));
                     EnqueueCommand(new DelegateCommand(_board.player.HandleCollision));
                 }
             }
@@ -51,7 +51,7 @@ namespace SlipAndJump.Commands {
                 foreach (Enemy e in _board.enemies) {
                     if (e1 != e && e.currentNode == e1.currentNode && !processed.Contains(e)) {
                         processed.Add(e);
-                        e.facing = DirectionHelpers.Inverse(e.facing);
+                        e.CollisionBounce();
                         Debug.Log($"{e.currentNode.Coordinates} - {e1.currentNode.Coordinates}");
                     }
                 }

@@ -1,12 +1,12 @@
 using UnityEngine;
 
 namespace SlipAndJump.Board {
-   public class PlatformNode : BoardNode {
+    public class PlatformNode : BoardNode {
+        public override Vector2Int Coordinates {
+            get { return _coordinates; }
+            set { _coordinates = value; }
+        }
 
-
-      public override Vector2Int Coordinates => coordinates;
-      public Vector2Int coordinates;
-
-
-   }
+        private Vector2Int _coordinates;
+    }
 }

@@ -95,7 +95,7 @@ namespace SlipAndJump.Board {
                     PlatformNode board = Instantiate(boardPrefab, parent, true);
                     board.transform.position = new Vector3(x * spacing, transform.position.y, y * spacing);
                     board.transform.name = $"Node: {x}-{y}";
-                    board.coordinates = new Vector2Int(x, y);
+                    board.Coordinates= new Vector2Int(x, y);
                     platforms[x][y] = board;
                 }
             }
