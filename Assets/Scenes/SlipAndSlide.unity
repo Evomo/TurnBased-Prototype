@@ -265,8 +265,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 2738935291175892243, guid: befb659a081ad63479e22b2e79516847, type: 3}
-  - {fileID: 6058605906190178989, guid: df9ed8dd8cea4514f8a1a740929e0e57, type: 3}
-  - {fileID: 1519602264596122796, guid: 8f3297759f377634cbebef2c117c3863, type: 3}
+  - {fileID: 7187480782298234214, guid: 97177809b30f4864eb85726e68093141, type: 3}
+  - {fileID: 4962620271039778043, guid: 8f3297759f377634cbebef2c117c3863, type: 3}
+  - {fileID: 7580746938077797549, guid: 7eebcaaed84890142b0da9affb928b8a, type: 3}
 --- !u!114 &991076346 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8387908807302011052, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}

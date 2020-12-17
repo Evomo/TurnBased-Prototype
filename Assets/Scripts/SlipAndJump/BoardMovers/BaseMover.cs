@@ -20,6 +20,7 @@ namespace SlipAndJump.BoardMovers {
         public virtual void Start() {
             board = FindObjectOfType<MapBoard>();
             JumpDuration = TurnHandler.Instance.turnDuration;
+            board.onTurn.AddListener(() => canMove = true);
         }
 
 
@@ -75,6 +76,11 @@ namespace SlipAndJump.BoardMovers {
             }
         }
 
+        public virtual void HandleCollision() {
+            //TODO
+            Debug.Log("Collided ");
+        }
+
         protected IEnumerator JumpTo(PlatformNode next) {
             canMove = false;
             float time = 0f;
@@ -93,8 +99,6 @@ namespace SlipAndJump.BoardMovers {
 
                 yield return null;
             }
-
-            canMove = true;
         }
     }
 }

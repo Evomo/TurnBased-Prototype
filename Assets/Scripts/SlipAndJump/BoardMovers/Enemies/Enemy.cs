@@ -43,7 +43,7 @@ namespace SlipAndJump.BoardMovers.Enemies {
                 currentNode = next;
             }
             else {
-                CollisionBounce();
+                HandleCollision();
             }
         }
 
@@ -52,7 +52,7 @@ namespace SlipAndJump.BoardMovers.Enemies {
             Destroy(gameObject);
         }
 
-        public void CollisionBounce() {
+        public override void HandleCollision() {
             if (--hitpoints > 0) {
                 int nextRotSteps = 0;
                 if (bounceDir == BounceType.Reflect) {

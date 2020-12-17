@@ -58,7 +58,7 @@ namespace SlipAndJump.Commands {
                     if (e1 != e && e.currentNode == e1.currentNode && !processed.Contains(e)) {
                         processed.Add(e);
                         enemyCollided = true;
-                        e.CollisionBounce();
+                        e.HandleCollision();
                     }
                 }
             }

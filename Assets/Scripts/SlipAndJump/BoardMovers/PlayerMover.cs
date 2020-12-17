@@ -9,7 +9,6 @@ namespace SlipAndJump.BoardMovers {
             canMove = true;
             currentNode = board.StartNode;
             transform.position = currentNode.landingPosition.position;
-            board.onTurn.AddListener(() => canMove = true);
         }
 
         public void Turn(bool ccw) {
@@ -20,9 +19,6 @@ namespace SlipAndJump.BoardMovers {
         }
 
 
-        public void HandleCollision() {
-            //TODO
-            Debug.Log("Collided ");
-        }
+
     }
 }
