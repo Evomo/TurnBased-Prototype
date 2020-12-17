@@ -18,10 +18,10 @@ namespace SlipAndJump.Board {
         }
 
         private void Spawn() {
-            if (_turnHandler.turnNumber % 2 == 0) {
+            // if (_turnHandler.turnNumber % 2 == 0) {
                Enemy e =  _board.spawnerNodes.RandomElement().Spawn(enemies.RandomElement());
                _board.enemies.Add(e);
-            }
+            // }
         }
     }
 }

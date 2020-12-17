@@ -39,11 +39,32 @@ namespace SlipAndJump.BoardMovers {
                             currentMovement == MovementOptions.Left));
 
                     coordinates = coordinates + delta;
-                    next = board.GetPlatform( coordinates);
+                    next = board.GetPlatform(coordinates);
                 }
             }
 
             return next;
+        }
+
+        protected IEnumerator RotateLerp(int cwSteps) {
+            canMove = false;
+            float time = 0f;
+            Quaternion start = transform.rotation;
+            Quaternion end = start * Quaternion.Euler(0, cwSteps * 90, 0);
+
+
+            while (time < JumpDuration) {
+                time += Time.deltaTime;
+
+
+                float linearT = time / JumpDuration;
+
+                transform.rotation = Quaternion.Lerp(start, end, linearT);
+
+                yield return null;
+            }
+
+            // canMove = true;
         }
 
         public virtual void Move() {

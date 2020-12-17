@@ -32,10 +32,14 @@ namespace SlipAndJump.Commands {
 
         public void ProcessTurn() {
             EmptyQueue();
-            StartCoroutine(CheckCollisions());
+            HandleCollisions();
             turnNumber++;
         }
 
+
+        private void HandleCollisions() {
+            StartCoroutine(CheckCollisions());
+        }
 
         private IEnumerator CheckCollisions() {
             yield return new WaitForSeconds(turnDuration);
@@ -45,12 +49,15 @@ namespace SlipAndJump.Commands {
                     EnqueueCommand(new DelegateCommand(_board.player.HandleCollision));
                 }
             }
+            EmptyQueue();
 
             HashSet<Enemy> processed = new HashSet<Enemy>();
+            bool enemyCollided = false;
             foreach (Enemy e1 in _board.enemies) {
                 foreach (Enemy e in _board.enemies) {
                     if (e1 != e && e.currentNode == e1.currentNode && !processed.Contains(e)) {
                         processed.Add(e);
+                        enemyCollided = true;
                         e.CollisionBounce();
                     }
                 }
@@ -62,7 +69,13 @@ namespace SlipAndJump.Commands {
                 yield return new WaitForSeconds(turnDuration);
             }
 
-            _board.onTurn.Invoke();
+            if (enemyCollided) {
+                yield return StartCoroutine(CheckCollisions());
+            }
+            else {
+                _board.onTurn.Invoke();
+
+            }
         }
 
         public void EnqueueCommand(ICommand command) {

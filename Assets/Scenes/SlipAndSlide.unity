@@ -218,7 +218,7 @@ MonoBehaviour:
   spawnerNodes: []
   boardPrefab: {fileID: -2887842388192419509, guid: 9b93133620079494c90637d45f2cbbb8, type: 3}
   spawnerPrefab: {fileID: 4926364214887493490, guid: 5d13640b631c80b47a7450a9883f2c35, type: 3}
-  mapSize: 7
+  mapSize: 10
   spacing: 2
   onTurn:
     m_PersistentCalls:

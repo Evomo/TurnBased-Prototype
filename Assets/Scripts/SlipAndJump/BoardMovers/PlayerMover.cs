@@ -15,30 +15,10 @@ namespace SlipAndJump.BoardMovers {
         public void Turn(bool ccw) {
             MapDirections next = DirectionHelpers.GetNeighbor(facing, ccw);
             facing = next;
-            StartCoroutine(RotateLerp(ccw));
+            StartCoroutine(RotateLerp(ccw ? -1 : 1));
             // transform.Rotate(Vector3.up, ccw ? -90 : 90);
         }
 
-        private IEnumerator RotateLerp(bool ccw) {
-            canMove = false;
-            float time = 0f;
-            Quaternion start = transform.rotation;
-            Quaternion end = start * Quaternion.Euler(0, ccw ? -90 : 90, 0);
-
-
-            while (time < JumpDuration) {
-                time += Time.deltaTime;
-
-
-                float linearT = time / JumpDuration;
-
-                transform.rotation = Quaternion.Lerp(start, end, linearT);
-
-                yield return null;
-            }
-
-            // canMove = true;
-        }
 
         public void HandleCollision() {
             //TODO
