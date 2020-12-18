@@ -23,7 +23,7 @@ namespace SlipAndJump {
 
         protected override void HandleMovement(EvoMovement msg) {
             if (player.canMove) {
-                DelegateCommand.VoidDel toEnqueue = null;
+                Action toEnqueue = null;
                 switch (msg.typeID) {
                     case MovementEnum.turn_90_left:
                         toEnqueue = TurnLeft;
@@ -39,7 +39,7 @@ namespace SlipAndJump {
                         break;
                 }
 
-                _invoker.EnqueueCommand(new DelegateCommand(toEnqueue));
+                _invoker.EnqueueCommand(new ActionCommand(toEnqueue));
                 _invoker.ProcessTurn();
             }
         }

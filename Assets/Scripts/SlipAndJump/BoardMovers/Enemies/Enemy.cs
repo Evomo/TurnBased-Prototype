@@ -16,24 +16,35 @@ namespace SlipAndJump.BoardMovers.Enemies {
         public PlatformNode next;
         public int hitpoints = 5;
         private int _rotationSteps = 0;
+        public float collisionDepth = 1;
 
         [Tooltip("Should the enemy get the inverse direction or its neighbor?")]
         public BounceType bounceDir;
 
+        #region Unity
+
         public override void Start() {
             base.Start();
-            board.onTurn.AddListener(() => PrepareTurn());
+            Board.onTurn.AddListener(() => PrepareTurn());
         }
 
         private void Update() {
-            Vector2Int dir = DirectionHelpers.DirectionsDelta(facing);
-            Debug.DrawRay(transform.position, new Vector3(dir.x, 0, dir.y), Color.magenta);
+            if (next) {
+                Debug.DrawLine(transform.position, next.landingPosition.position, Color.magenta);
+            }
         }
 
-        public void PrepareTurn(int steps = 0) {
+        #endregion
+
+        #region Turns
+
+        public void PrepareTurn(int steps = 0, float colDepth = 1) {
+            collisionDepth = colDepth;
+            JumpDuration = TurnHandler.Instance.turnDuration / collisionDepth;
             next = GetPlatformAfterMovement();
             _rotationSteps = steps;
-            TurnHandler.Instance.EnqueueCommand(new DelegateCommand(Move));
+
+            TurnHandler.Instance.EnqueueCommand(new ActionCommand(Move));
         }
 
         public override void Move() {
@@ -47,9 +58,24 @@ namespace SlipAndJump.BoardMovers.Enemies {
             }
         }
 
+        #endregion
+
+        #region Collision
+
         public void HandleDestroy() {
-            board.enemies.Remove(this);
+            Board.enemies.Remove(this);
             Destroy(gameObject);
+        }
+
+        public void HandleCollision(bool sameType) {
+            BounceType temp = bounceDir;
+            if (sameType) {
+                bounceDir = (BounceType) (((int) bounceDir + collisionDepth) % 3);
+                next = GetPlatformAfterMovement();
+            }
+
+            HandleCollision();
+            bounceDir = temp;
         }
 
         public override void HandleCollision() {
@@ -64,11 +90,13 @@ namespace SlipAndJump.BoardMovers.Enemies {
                     nextRotSteps = bounceDir == BounceType.Left ? -1 : 1;
                 }
 
-                PrepareTurn(nextRotSteps);
+                PrepareTurn(nextRotSteps, collisionDepth + 1);
             }
             else {
-                TurnHandler.Instance.EnqueueCommand(new DelegateCommand(HandleDestroy));
+                TurnHandler.Instance.EnqueueCommand(new ActionCommand(HandleDestroy));
             }
         }
+
+        #endregion
     }
 }

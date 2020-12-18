@@ -1,3 +1,4 @@
+using SlipAndJump.Collectables;
 using UnityEngine;
 
 namespace SlipAndJump.Board {
@@ -8,5 +9,8 @@ namespace SlipAndJump.Board {
         }
 
         private Vector2Int _coordinates;
+
+
+
     }
 }

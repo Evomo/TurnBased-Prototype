@@ -4,23 +4,18 @@ using SlipAndJump.Commands;
 using UnityEngine;
 
 namespace SlipAndJump.BoardMovers {
-    public abstract class BaseMover : MonoBehaviour {
-        private protected MapBoard board;
-
-        public BoardNode currentNode;
-        public MapDirections facing;
-
+    public abstract class BaseMover : BoardEntity {
         public MovementPattern movementPattern;
         public AnimationCurve curve;
+        public MapDirections facing;
 
-        private protected float JumpDuration;
         [Range(2, 5)] public float jumpHeight = 0;
         public bool canMove;
+        protected float JumpDuration;
 
         public virtual void Start() {
-            board = FindObjectOfType<MapBoard>();
             JumpDuration = TurnHandler.Instance.turnDuration;
-            board.onTurn.AddListener(() => canMove = true);
+            Board.onTurn.AddListener(() => canMove = true);
         }
 
 
@@ -40,11 +35,49 @@ namespace SlipAndJump.BoardMovers {
                             currentMovement == MovementOptions.Left));
 
                     coordinates = coordinates + delta;
-                    next = board.GetPlatform(coordinates);
+                    next = Board.GetPlatform(coordinates);
                 }
             }
 
             return next;
+        }
+
+
+        public virtual void Move() {
+            PlatformNode next = GetPlatformAfterMovement();
+            if (next) {
+                StartCoroutine(JumpTo(next));
+                currentNode = next;
+            }
+        }
+
+        public virtual void HandleCollision() {
+            //TODO
+            Debug.Log("Collided ");
+        }
+
+        #region Movement Coroutines
+
+        
+
+        protected IEnumerator JumpTo(PlatformNode next) {
+            canMove = false;
+            float time = 0f;
+            Vector3 start = transform.position;
+            Vector3 end = next.landingPosition.position;
+            while (time < JumpDuration) {
+                time += Time.deltaTime;
+
+
+                float linearT = time / JumpDuration;
+                float heightT = curve.Evaluate(linearT);
+
+                float height = Mathf.Lerp(0f, jumpHeight, heightT); // change 3 to however tall you want the arc to be
+
+                transform.position = Vector3.Lerp(start, end, linearT) + Vector3.up * height;
+
+                yield return null;
+            }
         }
 
         protected IEnumerator RotateLerp(int cwSteps) {
@@ -67,38 +100,7 @@ namespace SlipAndJump.BoardMovers {
 
             // canMove = true;
         }
+        #endregion
 
-        public virtual void Move() {
-            PlatformNode next = GetPlatformAfterMovement();
-            if (next) {
-                StartCoroutine(JumpTo(next));
-                currentNode = next;
-            }
-        }
-
-        public virtual void HandleCollision() {
-            //TODO
-            Debug.Log("Collided ");
-        }
-
-        protected IEnumerator JumpTo(PlatformNode next) {
-            canMove = false;
-            float time = 0f;
-            Vector3 start = transform.position;
-            Vector3 end = next.landingPosition.position;
-            while (time < JumpDuration) {
-                time += Time.deltaTime;
-
-
-                float linearT = time / JumpDuration;
-                float heightT = curve.Evaluate(linearT);
-
-                float height = Mathf.Lerp(0f, jumpHeight, heightT); // change 3 to however tall you want the arc to be
-
-                transform.position = Vector3.Lerp(start, end, linearT) + Vector3.up * height;
-
-                yield return null;
-            }
-        }
     }
 }

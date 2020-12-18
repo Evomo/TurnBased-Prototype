@@ -178,7 +178,7 @@ MonoBehaviour:
   jumpHeight: 5
   canMove: 0
   next: {fileID: 0}
-  hitpoints: 5
+  hitpoints: 100
   bounceDir: 0
 --- !u!1 &7116534984124665161
 GameObject:

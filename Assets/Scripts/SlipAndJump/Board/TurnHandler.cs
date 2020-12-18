@@ -41,14 +41,22 @@ namespace SlipAndJump.Commands {
             StartCoroutine(CheckCollisions());
         }
 
-        private IEnumerator CheckCollisions() {
-            yield return new WaitForSeconds(turnDuration);
+        private IEnumerator CheckCollisions(float depth = 1) {
+            yield return new WaitForSeconds(turnDuration / depth);
+            if (_board.goal) {
+                if (_board.goal.currentNode == _board.player.currentNode) {
+                    EnqueueCommand(new PlayerActionCommand(_board.goal.HandleEffect, _board.player));
+                
+                } 
+            }
+
             foreach (Enemy enemy in _board.enemies) {
                 if (enemy.currentNode == _board.player.currentNode) {
-                    EnqueueCommand(new DelegateCommand(enemy.HandleDestroy));
-                    EnqueueCommand(new DelegateCommand(_board.player.HandleCollision));
+                    EnqueueCommand(new ActionCommand(enemy.HandleDestroy));
+                    EnqueueCommand(new ActionCommand(() => _board.player.HandleCollision()));
                 }
             }
+
             EmptyQueue();
 
             HashSet<Enemy> processed = new HashSet<Enemy>();
@@ -57,8 +65,10 @@ namespace SlipAndJump.Commands {
                 foreach (Enemy e in _board.enemies) {
                     if (e1 != e && e.currentNode == e1.currentNode && !processed.Contains(e)) {
                         processed.Add(e);
+                        //change reflection type if it's the same type
+                        bool reflectionOverride = !processed.Contains(e1) && e.next == e1.next;
                         enemyCollided = true;
-                        e.HandleCollision();
+                        e.HandleCollision(reflectionOverride);
                     }
                 }
             }
@@ -70,11 +80,10 @@ namespace SlipAndJump.Commands {
             }
 
             if (enemyCollided) {
-                yield return StartCoroutine(CheckCollisions());
+                yield return StartCoroutine(CheckCollisions(depth + 1));
             }
             else {
                 _board.onTurn.Invoke();
-
             }
         }
 

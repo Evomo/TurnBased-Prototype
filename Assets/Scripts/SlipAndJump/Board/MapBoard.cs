@@ -2,15 +2,17 @@ using System;
 using System.Collections.Generic;
 using SlipAndJump.BoardMovers;
 using SlipAndJump.BoardMovers.Enemies;
+using SlipAndJump.Collectables;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace SlipAndJump.Board {
     [DisallowMultipleComponent]
     public class MapBoard : MonoBehaviour {
-        public PlatformNode[][] platforms;
+        public PlatformNode[][] Platforms;
         public PlayerMover player;
         public List<Enemy> enemies;
+        public Collectable goal;
         public List<SpawnerNode> spawnerNodes;
         [SerializeField] private PlatformNode boardPrefab;
         [SerializeField] private SpawnerNode spawnerPrefab;
@@ -21,18 +23,19 @@ namespace SlipAndJump.Board {
         public PlatformNode StartNode {
             get {
                 int center = mapSize / 2;
-                return platforms[center][center];
+                return Platforms[center][center];
             }
         }
 
         void Awake() {
             onTurn = new UnityEvent();
             enemies = new List<Enemy>();
-            platforms = new PlatformNode[mapSize][];
+            Platforms = new PlatformNode[mapSize][];
             SpawnPlatforms();
-            SetNeighbors();
             SetSpawnNodes();
         }
+
+        #region Setup
 
         private void SetSpawnNodes() {
             GameObject pgo = new GameObject();
@@ -43,7 +46,7 @@ namespace SlipAndJump.Board {
             parent.name = "Spawner Nodes";
             //Horizontal
             for (int i = 0; i < mapSize; i++) {
-                PlatformNode forwardNode = platforms[i][0];
+                PlatformNode forwardNode = Platforms[i][0];
                 SpawnerNode sn = Instantiate(spawnerPrefab, parent, true);
                 sn.transform.position = forwardNode.landingPosition.transform.position + Vector3.back * spacing;
                 sn.transform.name = $"SN: {i}-0";
@@ -51,7 +54,7 @@ namespace SlipAndJump.Board {
                 sn.forwardDirection = MapDirections.NORTH;
                 spawnerNodes.Add(sn);
 
-                forwardNode = platforms[i][mapSize - 1];
+                forwardNode = Platforms[i][mapSize - 1];
                 sn = Instantiate(spawnerPrefab, parent, true);
                 sn.transform.position = forwardNode.landingPosition.transform.position + Vector3.forward * spacing;
                 sn.transform.name = $"SN: {i}-{mapSize - 1}";
@@ -63,7 +66,7 @@ namespace SlipAndJump.Board {
 
             //Vertical
             for (int i = 0; i < mapSize; i++) {
-                PlatformNode forwardNode = platforms[0][i];
+                PlatformNode forwardNode = Platforms[0][i];
                 SpawnerNode sn = Instantiate(spawnerPrefab, parent, true);
                 sn.transform.position = forwardNode.landingPosition.transform.position + Vector3.left * spacing;
                 sn.transform.name = $"SN: {0}-{i}";
@@ -72,7 +75,7 @@ namespace SlipAndJump.Board {
                 spawnerNodes.Add(sn);
 
 
-                forwardNode = platforms[mapSize - 1][i];
+                forwardNode = Platforms[mapSize - 1][i];
                 sn = Instantiate(spawnerPrefab, parent, true);
                 sn.transform.position = forwardNode.landingPosition.transform.position + Vector3.right * spacing;
                 sn.transform.name = $"SN: {mapSize - 1}-{i}";
@@ -90,28 +93,23 @@ namespace SlipAndJump.Board {
             parent.parent = transform;
             parent.name = "Platform Nodes";
             for (int x = 0; x < mapSize; x++) {
-                platforms[x] = new PlatformNode[mapSize];
+                Platforms[x] = new PlatformNode[mapSize];
                 for (int y = 0; y < mapSize; y++) {
                     PlatformNode board = Instantiate(boardPrefab, parent, true);
                     board.transform.position = new Vector3(x * spacing, transform.position.y, y * spacing);
                     board.transform.name = $"Node: {x}-{y}";
-                    board.Coordinates= new Vector2Int(x, y);
-                    platforms[x][y] = board;
+                    board.Coordinates = new Vector2Int(x, y);
+                    Platforms[x][y] = board;
                 }
             }
         }
 
-        private void SetNeighbors() {
-            for (int x = 0; x < mapSize; x++) {
-                for (int y = 0; y < mapSize; y++) {
-                    PlatformNode board = platforms[x][y];
-                }
-            }
-        }
+        #endregion
+
 
         public PlatformNode GetPlatform(Vector2Int coord) {
             try {
-                PlatformNode pn = platforms[coord.x][coord.y];
+                PlatformNode pn = Platforms[coord.x][coord.y];
                 return pn;
             }
             catch (IndexOutOfRangeException) {
