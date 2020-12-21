@@ -288,7 +288,7 @@ MonoBehaviour:
   player: {fileID: 991076346}
   enemies: []
   goal: {fileID: 0}
-  mapSize: 10
+  mapSize: 9
   spawnerNodes: []
   boardPrefab: {fileID: -2887842388192419509, guid: 9b93133620079494c90637d45f2cbbb8, type: 3}
   spawnerPrefab: {fileID: 4926364214887493490, guid: 5d13640b631c80b47a7450a9883f2c35, type: 3}
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraFollow: {fileID: 2051289667}
   cmSmoothPath: {fileID: 1806125177}
-  offset: 11
+  offset: 10
   height: 20
 --- !u!114 &991076346 stripped
 MonoBehaviour:
