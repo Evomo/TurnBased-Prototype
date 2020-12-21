@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using MotionAI.Core.Util;
-using SlipAndJump.Board;
+using SlipAndJump.BoardMovers;
 using SlipAndJump.BoardMovers.Enemies;
+using SlipAndJump.Commands;
 using UnityEngine;
 
-namespace SlipAndJump.Commands {
+namespace SlipAndJump.Board {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(MapBoard))]
     public class TurnHandler : Singleton<TurnHandler> {
         private Queue<ICommand> _commandBuffer;
         private MapBoard _board;
-        public int turnNumber;
+        
         [Range(0.1f, .5f)] public float turnDuration = 0.5f;
+        public int turnNumber;
 
         private void Awake() {
             _commandBuffer = new Queue<ICommand>();
@@ -43,15 +45,15 @@ namespace SlipAndJump.Commands {
 
         private IEnumerator CheckCollisions(float depth = 1) {
             yield return new WaitForSeconds(turnDuration / depth);
+            PlayerMover player = _board.player;
             if (_board.goal) {
-                if (_board.goal.currentNode == _board.player.currentNode) {
+                if (_board.goal.Collides(player)) {
                     EnqueueCommand(new PlayerActionCommand(_board.goal.HandleEffect, _board.player));
-                
-                } 
+                }
             }
 
             foreach (Enemy enemy in _board.enemies) {
-                if (enemy.currentNode == _board.player.currentNode) {
+                if (enemy.Collides(player)) {
                     EnqueueCommand(new ActionCommand(enemy.HandleDestroy));
                     EnqueueCommand(new ActionCommand(() => _board.player.HandleCollision()));
                 }
@@ -63,7 +65,7 @@ namespace SlipAndJump.Commands {
             bool enemyCollided = false;
             foreach (Enemy e1 in _board.enemies) {
                 foreach (Enemy e in _board.enemies) {
-                    if (e1 != e && e.currentNode == e1.currentNode && !processed.Contains(e)) {
+                    if (e1 != e && e.Collides(e1) && !processed.Contains(e)) {
                         processed.Add(e);
                         //change reflection type if it's the same type
                         bool reflectionOverride = !processed.Contains(e1) && e.next == e1.next;

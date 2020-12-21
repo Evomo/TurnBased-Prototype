@@ -13,7 +13,6 @@ namespace SlipAndJump.BoardMovers.Enemies {
     }
 
     public class Enemy : BaseMover {
-        public PlatformNode next;
         public int hitpoints = 5;
         private int _rotationSteps = 0;
         public float collisionDepth = 1;
@@ -25,6 +24,7 @@ namespace SlipAndJump.BoardMovers.Enemies {
 
         public override void Start() {
             base.Start();
+            
             Board.onTurn.AddListener(() => PrepareTurn());
         }
 

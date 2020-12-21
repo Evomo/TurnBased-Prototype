@@ -8,6 +8,7 @@ namespace SlipAndJump.BoardMovers {
         public MovementPattern movementPattern;
         public AnimationCurve curve;
         public MapDirections facing;
+        public PlatformNode next;
 
         [Range(2, 5)] public float jumpHeight = 0;
         public bool canMove;
@@ -20,10 +21,10 @@ namespace SlipAndJump.BoardMovers {
 
 
         public PlatformNode GetPlatformAfterMovement() {
-            PlatformNode next = null;
+            PlatformNode tmpNext = null;
             if (currentNode is SpawnerNode) {
                 SpawnerNode c = currentNode as SpawnerNode;
-                next = c.forwardNode;
+                tmpNext = c.forwardNode;
             }
             else {
                 PlatformNode bn = currentNode as PlatformNode;
@@ -35,19 +36,19 @@ namespace SlipAndJump.BoardMovers {
                             currentMovement == MovementOptions.Left));
 
                     coordinates = coordinates + delta;
-                    next = Board.GetPlatform(coordinates);
+                    tmpNext = Board.GetPlatform(coordinates);
                 }
             }
 
-            return next;
+            return tmpNext;
         }
 
 
         public virtual void Move() {
-            PlatformNode next = GetPlatformAfterMovement();
-            if (next) {
-                StartCoroutine(JumpTo(next));
-                currentNode = next;
+            PlatformNode tmpNext = GetPlatformAfterMovement();
+            if (tmpNext) {
+                StartCoroutine(JumpTo(tmpNext));
+                currentNode = tmpNext;
             }
         }
 
@@ -56,15 +57,22 @@ namespace SlipAndJump.BoardMovers {
             Debug.Log("Collided ");
         }
 
-        #region Movement Coroutines
+        #region Movement Helpers
 
-        
+        public override bool Collides(BoardEntity other, bool nextTurn = false) {
+            BaseMover bm;
+            if (other.gameObject.TryGetComponent(out bm) && nextTurn) {
+                return bm.next == next;
+            }
 
-        protected IEnumerator JumpTo(PlatformNode next) {
+            return base.Collides(other);
+        }
+
+        protected IEnumerator JumpTo(PlatformNode tmpNext) {
             canMove = false;
             float time = 0f;
             Vector3 start = transform.position;
-            Vector3 end = next.landingPosition.position;
+            Vector3 end = tmpNext.landingPosition.position;
             while (time < JumpDuration) {
                 time += Time.deltaTime;
 
@@ -100,7 +108,7 @@ namespace SlipAndJump.BoardMovers {
 
             // canMove = true;
         }
-        #endregion
 
+        #endregion
     }
 }

@@ -16,7 +16,7 @@ namespace SlipAndJump.Collectables {
             Board.goal = null;
             Debug.Log(1);
             //TODO pool 
-            Destroy(this);
+            Destroy(gameObject);
         }
 
         public void Spawn(PlatformNode n) {

@@ -13,10 +13,11 @@ namespace SlipAndJump.Board {
         public PlayerMover player;
         public List<Enemy> enemies;
         public Collectable goal;
+        [SerializeField, Range(3, 10)] public int mapSize = 5;
+
         public List<SpawnerNode> spawnerNodes;
         [SerializeField] private PlatformNode boardPrefab;
         [SerializeField] private SpawnerNode spawnerPrefab;
-        [SerializeField, Range(3, 10)] private int mapSize = 5;
         [SerializeField, Range(1, 5)] private float spacing = 2;
         public UnityEvent onTurn;
 
@@ -28,7 +29,6 @@ namespace SlipAndJump.Board {
         }
 
         void Awake() {
-            onTurn = new UnityEvent();
             enemies = new List<Enemy>();
             Platforms = new PlatformNode[mapSize][];
             SpawnPlatforms();
