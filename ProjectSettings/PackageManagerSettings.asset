@@ -28,7 +28,6 @@ MonoBehaviour:
     m_Name: package.openupm.com
     m_Url: https://package.openupm.com
     m_Scopes:
-    - nl.elraccoone.tweens
     - com.evomo.gamehub
     - com.evomo.motionai
     - com.openupm
@@ -44,7 +43,6 @@ MonoBehaviour:
       m_Name: package.openupm.com
       m_Url: https://package.openupm.com
       m_Scopes:
-      - nl.elraccoone.tweens
       - com.evomo.gamehub
       - com.evomo.motionai
       - com.openupm
@@ -55,7 +53,6 @@ MonoBehaviour:
     m_Name: package.openupm.com
     m_Url: https://package.openupm.com
     m_Scopes:
-    - nl.elraccoone.tweens
     - com.evomo.gamehub
     - com.evomo.motionai
     - com.openupm
