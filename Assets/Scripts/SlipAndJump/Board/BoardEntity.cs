@@ -9,5 +9,11 @@ namespace SlipAndJump.Board {
         private void Awake() {
             Board = FindObjectOfType<MapBoard>();
         }
+
+
+
+        public virtual bool Collides(BoardEntity other, bool nextTurn = false) {
+            return currentNode == other.currentNode;
+        }
     }
 }
