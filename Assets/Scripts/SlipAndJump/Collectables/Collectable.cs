@@ -2,18 +2,23 @@
 using SlipAndJump.Board;
 using SlipAndJump.Board.Spawner;
 using SlipAndJump.BoardMovers;
+using SlipAndJump.Commands;
 using UnityEngine;
 
 namespace SlipAndJump.Collectables {
     public class Collectable : BoardEntity, ISpawnable<Collectable> {
+        private bool _collected = false;
+
+        public int scoreValue = 1; 
         public void Update() {
             transform.Rotate(Vector3.up, 30 * Time.deltaTime);
         }
 
         public virtual void HandleEffect(PlayerMover player) {
-            player.Score += 1;
-            Debug.Log(1);
+            player.Score += scoreValue;
+
             //TODO pool 
+            SpawnerManager.Despawn(this);
             Destroy(gameObject);
         }
 
@@ -27,6 +32,14 @@ namespace SlipAndJump.Collectables {
 
             SpawnerManager.Despawn(this);
             return null;
+        }
+
+        public void Collect(PlayerMover player) {
+            if (!_collected) {
+                TurnHandler.Instance.EnqueueCommand(new PlayerActionCommand(HandleEffect, player));
+            }
+
+            _collected = true;
         }
     }
 }

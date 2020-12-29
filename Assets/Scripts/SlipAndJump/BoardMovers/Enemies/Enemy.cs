@@ -76,6 +76,7 @@ namespace SlipAndJump.BoardMovers.Enemies {
             }
 
             SpawnerManager.Despawn(this);
+            
             return null;
         }
 
