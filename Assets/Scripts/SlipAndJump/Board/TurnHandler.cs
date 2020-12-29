@@ -53,7 +53,7 @@ namespace SlipAndJump.Board {
 
             foreach (Collectable collectable in _spawnerManager.Collectables) {
                 if (collectable.CollidesWith(player)) {
-                    EnqueueCommand(new PlayerActionCommand(collectable.HandleEffect, _board.player));
+                    collectable.Collect(player);
                 }
             }
 

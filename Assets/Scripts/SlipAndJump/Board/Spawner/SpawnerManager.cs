@@ -20,35 +20,18 @@ namespace SlipAndJump.Board.Spawner {
         public List<Enemy> Enemies => _enemies;
         public List<Collectable> Collectables => _collectables;
         public SpawnPlan spawnPlan;
-        public TurnHandler turnHandler;
+        private TurnHandler _turnHandler;
         public SpawnOptions enemySpawnOptions, collectableSpawnOptions;
         [Range(1, 10)] public int maxCollectablesOnScreen = 1;
         [Range(10, 50)] public int maxEnemiesOnScreen = 1;
 
-        #region Internal Classes
 
-        [Serializable]
-        public class SpawnOptions {
-            public AnimationCurve spawnCurve;
-            [Range(1, 10)] public int maxEntitiesSpawned;
-            [Range(10, 100)] public int maxTurns;
-            [Range(1, 10)] public int spawnModulo;
-
-
-            public int AmountToSpawn(int currentTurn) {
-                float normalizedTurn = Mathf.Clamp01((float) currentTurn / (float) maxTurns);
-
-                return Mathf.Max(1, (int) (spawnCurve.Evaluate(normalizedTurn) * maxEntitiesSpawned));
-            }
-        }
-
-        #endregion
 
         private void Start() {
             _enemies = new List<Enemy>();
             _collectables = new List<Collectable>();
             _board = GetComponent<MapBoard>();
-            turnHandler = GetComponent<TurnHandler>();
+            _turnHandler = GetComponent<TurnHandler>();
             _board.onTurn.AddListener(() => Spawn());
             GameObject spPos = new GameObject();
             spPos.transform.position = transform.position;
@@ -58,10 +41,9 @@ namespace SlipAndJump.Board.Spawner {
         }
 
         private void Spawn() {
-            if (turnHandler.turnNumber % enemySpawnOptions.spawnModulo == 0
+            if (_turnHandler.turnNumber % enemySpawnOptions.spawnModulo == 0
                 && _enemies.Count < maxEnemiesOnScreen) {
-                int amountToSpawn = enemySpawnOptions.AmountToSpawn(turnHandler.turnNumber);
-                Debug.Log($"Spawning {amountToSpawn} enemies");
+                int amountToSpawn = enemySpawnOptions.AmountToSpawn(_turnHandler.turnNumber);
                 HashSet<SpawnerNode> availableNodes = new HashSet<SpawnerNode>();
                 while (availableNodes.Count < amountToSpawn) {
                     availableNodes.Add(_board.spawnerNodes.RandomElement());
@@ -71,13 +53,15 @@ namespace SlipAndJump.Board.Spawner {
                     Enemy e = spawnNode.Spawn(spawnPlan.SampleEnemy());
                     e.transform.SetParent(_spawnPos);
                     _enemies.Add(e);
+                    if (_enemies.Count == maxEnemiesOnScreen) break;
+
                 }
             }
 
 
-            if (turnHandler.turnNumber % collectableSpawnOptions.spawnModulo == 0 &&
+            if (_turnHandler.turnNumber % collectableSpawnOptions.spawnModulo == 0 &&
                 _collectables.Count < maxCollectablesOnScreen) {
-                int amountToSpawn = collectableSpawnOptions.AmountToSpawn(turnHandler.turnNumber);
+                int amountToSpawn = collectableSpawnOptions.AmountToSpawn(_turnHandler.turnNumber);
 
                 HashSet<PlatformNode> availableNodes = new HashSet<PlatformNode>();
                 List<PlatformNode[]> nodeRows = _board.Platforms.ToList();
@@ -91,6 +75,8 @@ namespace SlipAndJump.Board.Spawner {
                     Collectable e = spawnNode.Spawn(spawnPlan.SampleCollectable());
                     e.transform.SetParent(_spawnPos);
                     _collectables.Add(e);
+
+                    if (_collectables.Count == maxCollectablesOnScreen) break;
                 }
             }
         }

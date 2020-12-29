@@ -337,6 +337,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPlan: {fileID: 11400000, guid: 2b34aa2f47f2e76408581bc048724954, type: 2}
+  enemySpawnOptions: {fileID: 11400000, guid: 750f97548a0caf54e8346ed274eb4aeb, type: 2}
+  collectableSpawnOptions: {fileID: 11400000, guid: 750f97548a0caf54e8346ed274eb4aeb, type: 2}
+  maxCollectablesOnScreen: 1
+  maxEnemiesOnScreen: 23
 --- !u!114 &303281549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,8 +428,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383539505}
-  m_LocalRotation: {x: -0.058377147, y: 0.94095266, z: -0.25338835, w: -0.21678245}
-  m_LocalPosition: {x: 7.9999995, y: 20, z: 26}
+  m_LocalRotation: {x: 0.14287923, y: -0.7991653, z: 0.20951216, w: 0.5450001}
+  m_LocalPosition: {x: 26, y: 20, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 103147828}
@@ -448,7 +452,7 @@ MonoBehaviour:
   m_UpdateMethod: 0
   m_PositionUnits: 0
   m_Speed: 0
-  m_Position: 0
+  m_Position: 1
 --- !u!1 &1565091596
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,8 +530,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565091596}
-  m_LocalRotation: {x: -0.058377147, y: 0.94095266, z: -0.25338835, w: -0.21678245}
-  m_LocalPosition: {x: 7.9999995, y: 20, z: 26}
+  m_LocalRotation: {x: 0.14287923, y: -0.7991653, z: 0.20951216, w: 0.5450001}
+  m_LocalPosition: {x: 26, y: 20, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
