@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using SlipAndJump.Board;
 using SlipAndJump.Board.Spawner;
 using SlipAndJump.Commands;
+using SlipAndJump.Util;
 using UnityEngine;
 using UnityEngine.XR;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using SlipAndJump.BoardMovers;
 using SlipAndJump.BoardMovers.Enemies;
+using SlipAndJump.Util;
 using UnityEngine;
 
 namespace SlipAndJump.Board {

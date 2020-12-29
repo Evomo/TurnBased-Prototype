@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SlipAndJump.BoardMovers;
 using SlipAndJump.BoardMovers.Enemies;
 using SlipAndJump.Collectables;
+using SlipAndJump.Util;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -48,7 +49,7 @@ namespace SlipAndJump.Board {
                 sn.transform.position = forwardNode.landingPosition.transform.position + Vector3.back * spacing;
                 sn.transform.name = $"SN: {i}-0";
                 sn.forwardNode = forwardNode;
-                sn.forwardDirection = MapDirections.NORTH;
+                sn.forwardDirection = MapDirections.North;
                 spawnerNodes.Add(sn);
 
                 forwardNode = Platforms[i][mapSize - 1];
@@ -56,7 +57,7 @@ namespace SlipAndJump.Board {
                 sn.transform.position = forwardNode.landingPosition.transform.position + Vector3.forward * spacing;
                 sn.transform.name = $"SN: {i}-{mapSize - 1}";
                 sn.forwardNode = forwardNode;
-                sn.forwardDirection = MapDirections.SOUTH;
+                sn.forwardDirection = MapDirections.South;
                 spawnerNodes.Add(sn);
             }
 
@@ -68,7 +69,7 @@ namespace SlipAndJump.Board {
                 sn.transform.position = forwardNode.landingPosition.transform.position + Vector3.left * spacing;
                 sn.transform.name = $"SN: {0}-{i}";
                 sn.forwardNode = forwardNode;
-                sn.forwardDirection = MapDirections.EAST;
+                sn.forwardDirection = MapDirections.East;
                 spawnerNodes.Add(sn);
 
 
@@ -76,7 +77,7 @@ namespace SlipAndJump.Board {
                 sn = Instantiate(spawnerPrefab, parent, true);
                 sn.transform.position = forwardNode.landingPosition.transform.position + Vector3.right * spacing;
                 sn.transform.name = $"SN: {mapSize - 1}-{i}";
-                sn.forwardDirection = MapDirections.WEST;
+                sn.forwardDirection = MapDirections.West;
                 sn.forwardNode = forwardNode;
                 spawnerNodes.Add(sn);
             }

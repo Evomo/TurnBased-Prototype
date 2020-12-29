@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cinemachine;
+using SlipAndJump.Util;
 using UnityEngine;
 
 namespace SlipAndJump.Board.Camera {
@@ -22,10 +23,10 @@ namespace SlipAndJump.Board.Camera {
 
             CameraFollow.position = _board.Platforms[mid][mid].transform.position;
             cmSmoothPath.m_Waypoints = new CinemachineSmoothPath.Waypoint[4] {
-                new CinemachineSmoothPath.Waypoint {position = FromNode(_board.Platforms[mid][0], MapDirections.SOUTH)},
-                new CinemachineSmoothPath.Waypoint {position = FromNode(_board.Platforms[0][mid], MapDirections.WEST)},
-                new CinemachineSmoothPath.Waypoint {position = FromNode(_board.Platforms[mid][size-1], MapDirections.NORTH)},
-                new CinemachineSmoothPath.Waypoint {position = FromNode(_board.Platforms[size-1][mid], MapDirections.EAST)},
+                new CinemachineSmoothPath.Waypoint {position = FromNode(_board.Platforms[mid][size-1], MapDirections.North)},
+                new CinemachineSmoothPath.Waypoint {position = FromNode(_board.Platforms[size-1][mid], MapDirections.East)},
+                new CinemachineSmoothPath.Waypoint {position = FromNode(_board.Platforms[mid][0], MapDirections.South)},
+                new CinemachineSmoothPath.Waypoint {position = FromNode(_board.Platforms[0][mid], MapDirections.West)},
             };
         }
 
@@ -33,16 +34,16 @@ namespace SlipAndJump.Board.Camera {
             Vector3 off = Vector3.zero;
             
             switch (direction) {
-                case MapDirections.NORTH:
+                case MapDirections.North:
                     off = new Vector3(0, height, offset);
                     break;
-                case MapDirections.SOUTH:
+                case MapDirections.South:
                     off = new Vector3(0, height, -offset);
                     break;
-                case MapDirections.EAST:
+                case MapDirections.East:
                     off = new Vector3(offset, height, 0);
                     break;
-                case MapDirections.WEST:
+                case MapDirections.West:
                     off = new Vector3(-offset, height, 0);
                     break;
             }

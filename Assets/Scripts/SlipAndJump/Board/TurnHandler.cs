@@ -15,7 +15,7 @@ namespace SlipAndJump.Board {
     public class TurnHandler : Singleton<TurnHandler> {
         private Queue<ICommand> _commandBuffer;
         private MapBoard _board;
-        private SpawnerManager _spawnerManager; 
+        private SpawnerManager _spawnerManager;
         [Range(0.1f, .5f)] public float turnDuration = 0.5f;
         public int turnNumber;
 
@@ -52,12 +52,13 @@ namespace SlipAndJump.Board {
             PlayerMover player = _board.player;
 
             foreach (Collectable collectable in _spawnerManager.Collectables) {
-                EnqueueCommand(new PlayerActionCommand(collectable.HandleEffect, _board.player));
- 
+                if (collectable.CollidesWith(player)) {
+                    EnqueueCommand(new PlayerActionCommand(collectable.HandleEffect, _board.player));
+                }
             }
 
             foreach (Enemy enemy in _spawnerManager.Enemies) {
-                if (enemy.Collides(player)) {
+                if (enemy.CollidesWith(player)) {
                     EnqueueCommand(new ActionCommand(enemy.HandleDestroy));
                     EnqueueCommand(new ActionCommand(() => _board.player.HandleCollision()));
                 }
@@ -69,7 +70,7 @@ namespace SlipAndJump.Board {
             bool enemyCollided = false;
             foreach (Enemy e1 in _spawnerManager.Enemies) {
                 foreach (Enemy e in _spawnerManager.Enemies) {
-                    if (e1 != e && e.Collides(e1) && !processed.Contains(e)) {
+                    if (e1 != e && e.CollidesWith(e1) && !processed.Contains(e)) {
                         processed.Add(e);
                         //change reflection type if it's the same type
                         bool reflectionOverride = !processed.Contains(e1) && e.next == e1.next;

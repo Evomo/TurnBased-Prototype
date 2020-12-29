@@ -1,18 +1,20 @@
 using System.Collections;
 using Cinemachine;
 using SlipAndJump.BoardMovers;
+using SlipAndJump.Util;
 using UnityEngine;
 
 namespace SlipAndJump.Board.Camera {
     [RequireComponent(typeof(PlayerMover))]
     public class DirectionFollower : MonoBehaviour {
-        private PlayerMover player;
+        private PlayerMover _player;
 
         public CinemachineDollyCart path;
 
         void Start() {
-            player = GetComponent<PlayerMover>();
-            player.onRotate.AddListener(ccw => StartCoroutine(UpdatePathPosition(ccw)));
+            _player = GetComponent<PlayerMover>();
+            _player.onRotate.AddListener(ccw => StartCoroutine(UpdatePathPosition(ccw)));
+            path.m_Position = (float)DirectionHelpers.Inverse(_player.facing);
         }
 
 

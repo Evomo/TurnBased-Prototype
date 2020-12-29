@@ -94,6 +94,8 @@ GameObject:
   - component: {fileID: 991076348}
   - component: {fileID: 991076349}
   - component: {fileID: 991076350}
+  - component: {fileID: 1393448537}
+  - component: {fileID: 1393448536}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -129,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentNode: {fileID: 0}
-  movementPattern: {fileID: 0}
+  movementPattern: {fileID: 11400000, guid: 0981bedd124089540b76c7f552cc1fa1, type: 2}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -164,8 +166,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   facing: 0
+  next: {fileID: 0}
   jumpHeight: 3
   canMove: 0
+  onRotate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &991076348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +260,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugAsset: {fileID: 11400000, guid: ef690a570bbf200489be7f768ae8c300, type: 2}
+--- !u!65 &1393448537
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404255616535765813}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1393448536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404255616535765813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81343df38a26b0c49a06ff52f7b897eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: {fileID: 0}
 --- !u!1 &7670385326183340714
 GameObject:
   m_ObjectHideFlags: 0

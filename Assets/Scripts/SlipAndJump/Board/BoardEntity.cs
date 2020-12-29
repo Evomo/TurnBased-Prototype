@@ -12,7 +12,7 @@ namespace SlipAndJump.Board {
 
 
 
-        public virtual bool Collides(BoardEntity other, bool nextTurn = false) {
+        public virtual bool CollidesWith(BoardEntity other, bool nextTurn = false) {
             return currentNode == other.currentNode;
         }
     }

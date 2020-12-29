@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using SlipAndJump.Board;
 using SlipAndJump.Commands;
+using SlipAndJump.Util;
 using UnityEngine;
 
 namespace SlipAndJump.BoardMovers {
@@ -59,13 +60,13 @@ namespace SlipAndJump.BoardMovers {
 
         #region Movement Helpers
 
-        public override bool Collides(BoardEntity other, bool nextTurn = false) {
+        public override bool CollidesWith(BoardEntity other, bool nextTurn = false) {
             BaseMover bm;
             if (other.gameObject.TryGetComponent(out bm) && nextTurn) {
                 return bm.next == next;
             }
 
-            return base.Collides(other);
+            return base.CollidesWith(other);
         }
 
         protected IEnumerator JumpTo(PlatformNode tmpNext) {

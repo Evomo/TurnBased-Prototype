@@ -11,6 +11,9 @@ namespace SlipAndJump.Board {
         private Vector2Int _coordinates;
 
 
-
+        public Collectable Spawn(Collectable prefab) {
+            Collectable c = Instantiate(prefab);
+            return c.Spawn(this);
+        }
     }
 }
