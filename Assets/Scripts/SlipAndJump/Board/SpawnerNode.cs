@@ -15,12 +15,8 @@ namespace SlipAndJump.Board {
 
         public Enemy Spawn(Enemy enemyPrefab) {
             Enemy e = Instantiate(enemyPrefab);
-            e.facing = forwardDirection;
-            e.currentNode = this;
-            e.transform.position = landingPosition.position;
-            e.transform.Rotate(new Vector3(0, (int) e.facing * 90, 0));
-            e.PrepareTurn();
-            return e;
+            return e.Spawn(this);
+
         }
     }
 }

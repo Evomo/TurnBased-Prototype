@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using SlipAndJump.Board;
+using SlipAndJump.Board.Spawner;
 using SlipAndJump.Commands;
 using UnityEngine;
 using UnityEngine.XR;
@@ -12,7 +13,7 @@ namespace SlipAndJump.BoardMovers.Enemies {
         Right
     }
 
-    public class Enemy : BaseMover {
+    public class Enemy : BaseMover, ISpawnable<Enemy> {
         public int hitpoints = 5;
         private int _rotationSteps = 0;
         public float collisionDepth = 1;
@@ -24,7 +25,7 @@ namespace SlipAndJump.BoardMovers.Enemies {
 
         public override void Start() {
             base.Start();
-            
+
             Board.onTurn.AddListener(() => PrepareTurn());
         }
 
@@ -60,10 +61,29 @@ namespace SlipAndJump.BoardMovers.Enemies {
 
         #endregion
 
+        #region Spawn
+    
+        public Enemy Spawn(BoardNode spawnerNode) {
+            SpawnerNode sp;
+            if (spawnerNode.TryGetComponent(out sp)) {
+                facing = sp.forwardDirection;
+                currentNode = spawnerNode;
+                transform.position = spawnerNode.landingPosition.position;
+                transform.Rotate(new Vector3(0, (int) facing * 90, 0));
+                PrepareTurn();
+                return this;
+            }
+
+            SpawnerManager.Despawn(this);
+            return null;
+        }
+
+        #endregion
+
         #region Collision
 
         public void HandleDestroy() {
-            Board.enemies.Remove(this);
+            SpawnerManager.Despawn(this);
             Destroy(gameObject);
         }
 
@@ -98,5 +118,7 @@ namespace SlipAndJump.BoardMovers.Enemies {
         }
 
         #endregion
+
+
     }
 }

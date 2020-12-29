@@ -11,8 +11,6 @@ namespace SlipAndJump.Board {
     public class MapBoard : MonoBehaviour {
         public PlatformNode[][] Platforms;
         public PlayerMover player;
-        public List<Enemy> enemies;
-        public Collectable goal;
         [SerializeField, Range(3, 10)] public int mapSize = 5;
 
         public List<SpawnerNode> spawnerNodes;
@@ -29,7 +27,6 @@ namespace SlipAndJump.Board {
         }
 
         void Awake() {
-            enemies = new List<Enemy>();
             Platforms = new PlatformNode[mapSize][];
             SpawnPlatforms();
             SetSpawnNodes();
