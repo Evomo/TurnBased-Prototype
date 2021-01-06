@@ -11,7 +11,7 @@ namespace SlipAndJump {
     public class PlayerController : MotionAIController {
         public PlayerMover player;
         
-        [SerializeField] private TurnHandler _invoker;
+        [SerializeField] private TurnHandler turnHandler;
 
 
         public void TurnLeft() {
@@ -37,8 +37,8 @@ namespace SlipAndJump {
                         break;
                 }
 
-                _invoker.EnqueueCommand(new ActionCommand(toEnqueue));
-                _invoker.ProcessTurn();
+                turnHandler.EnqueueCommand(new ActionCommand(toEnqueue));
+                turnHandler.ProcessTurn();
             }
         }
     }

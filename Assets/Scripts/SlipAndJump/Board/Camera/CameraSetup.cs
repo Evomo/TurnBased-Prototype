@@ -7,7 +7,7 @@ namespace SlipAndJump.Board.Camera {
     [RequireComponent(typeof(MapBoard))]
     public class CameraSetup : MonoBehaviour {
         private MapBoard _board;
-        public Transform CameraFollow;
+        public Transform cameraFollow;
         public CinemachineSmoothPath cmSmoothPath;
         public float offset;
         public float height;
@@ -21,7 +21,7 @@ namespace SlipAndJump.Board.Camera {
             int size = _board.mapSize;
             int mid = size / 2;
 
-            CameraFollow.position = _board.Platforms[mid][mid].transform.position;
+            cameraFollow.position = _board.Platforms[mid][mid].transform.position;
             cmSmoothPath.m_Waypoints = new CinemachineSmoothPath.Waypoint[4] {
                 new CinemachineSmoothPath.Waypoint {position = FromNode(_board.Platforms[mid][size-1], MapDirections.North)},
                 new CinemachineSmoothPath.Waypoint {position = FromNode(_board.Platforms[size-1][mid], MapDirections.East)},

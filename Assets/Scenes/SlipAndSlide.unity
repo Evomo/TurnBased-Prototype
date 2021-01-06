@@ -162,9 +162,6 @@ MonoBehaviour:
     unpairedEvent:
       m_PersistentCalls:
         m_Calls: []
-    onMovement:
-      m_PersistentCalls:
-        m_Calls: []
   automaticPairing: 1
   isTracking: 0
   isDebug: 1
@@ -253,6 +250,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &227979808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 404255616535765813, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+  m_PrefabInstance: {fileID: 5277497526298016369}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &227979813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227979808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938234cb1e99b7f4480b31e8c16e6aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelType: 0
+  moves:
+    duck:
+      name: duck
+      id: 90
+      onMove:
+        m_PersistentCalls:
+          m_Calls: []
+      Elmos: 2b0000002c000000
+    hop_single:
+      name: hop_single
+      id: 115
+      onMove:
+        m_PersistentCalls:
+          m_Calls: []
+      Elmos: 540000005b000000
+    turn_90_right:
+      name: turn_90_right
+      id: 101
+      onMove:
+        m_PersistentCalls:
+          m_Calls: []
+      Elmos: c6000000
+    turn_90_left:
+      name: turn_90_left
+      id: 102
+      onMove:
+        m_PersistentCalls:
+          m_Calls: []
+      Elmos: c5000000
+    turn_90:
+      name: turn_90
+      id: 103
+      onMove:
+        m_PersistentCalls:
+          m_Calls: []
+      Elmos: c4000000
+  meta: {}
 --- !u!1 &303281544
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +391,7 @@ MonoBehaviour:
   spawnPlan: {fileID: 11400000, guid: 2b34aa2f47f2e76408581bc048724954, type: 2}
   enemySpawnOptions: {fileID: 11400000, guid: 750f97548a0caf54e8346ed274eb4aeb, type: 2}
   collectableSpawnOptions: {fileID: 11400000, guid: 750f97548a0caf54e8346ed274eb4aeb, type: 2}
-  maxCollectablesOnScreen: 1
+  maxCollectablesOnScreen: 2
   maxEnemiesOnScreen: 23
 --- !u!114 &303281549
 MonoBehaviour:
@@ -362,7 +414,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8387908807302011052, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
   m_PrefabInstance: {fileID: 5277497526298016369}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 227979808}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cce37521c3c745549aebe74971ee8016, type: 3}
@@ -760,7 +812,311 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[0].Elmos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[1].Elmos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[2].Elmos.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[3].Elmos.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[4].Elmos.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[5].Elmos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[6].Elmos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[7].Elmos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[8].Elmos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[9].Elmos.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[10].Elmos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[11].Elmos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[12].Elmos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[13].Elmos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
       propertyPath: _invoker
+      value: 
+      objectReference: {fileID: 303281547}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: modelManager.chosenModel.GUID
+      value: 938234cb1e99b7f4480b31e8c16e6aaf
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: modelManager.chosenModel._typeNameAndAssembly
+      value: MotionAI.Core.Models.Generated.Hdtt, MotionAI.Core
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[0].name
+      value: duck
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[0].id
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[0].Elmos.Array.data[0]
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[0].Elmos.Array.data[1]
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[1].name
+      value: hop_single
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[1].id
+      value: 115
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[1].Elmos.Array.data[0]
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[1].Elmos.Array.data[1]
+      value: 91
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[2].name
+      value: turn_90_right
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[2].id
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[2].Elmos.Array.data[0]
+      value: 198
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[3].name
+      value: turn_90_left
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[3].id
+      value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[3].Elmos.Array.data[0]
+      value: 197
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[4].name
+      value: burpee
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[4].id
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[4].Elmos.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: modelManager.modelComponent
+      value: 
+      objectReference: {fileID: 227979813}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[2].Elmos.Array.data[1]
+      value: 121
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[3].Elmos.Array.data[1]
+      value: 119
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[4].Elmos.Array.data[1]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[4].Elmos.Array.data[2]
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[4].Elmos.Array.data[3]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[5].name
+      value: squat_jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[5].id
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[5].Elmos.Array.data[0]
+      value: 187
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[5].Elmos.Array.data[1]
+      value: 188
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[6].name
+      value: high_knees
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[6].id
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[6].Elmos.Array.data[0]
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[6].Elmos.Array.data[1]
+      value: 74
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[7].name
+      value: hip_raise
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[7].id
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[7].Elmos.Array.data[0]
+      value: 76
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[7].Elmos.Array.data[1]
+      value: 77
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[8].name
+      value: calf_raise
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[8].id
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[8].Elmos.Array.data[0]
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[8].Elmos.Array.data[1]
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[9].name
+      value: plank
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[9].id
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[9].Elmos.Array.data[0]
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[10].name
+      value: climbers
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[10].id
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[10].Elmos.Array.data[0]
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[10].Elmos.Array.data[1]
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[11].name
+      value: plank_jack
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[11].id
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[11].Elmos.Array.data[0]
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[11].Elmos.Array.data[1]
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[12].name
+      value: lunge_reverse
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[12].id
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[12].Elmos.Array.data[0]
+      value: 115
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[12].Elmos.Array.data[1]
+      value: 116
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[13].name
+      value: good_morning
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[13].id
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[13].Elmos.Array.data[0]
+      value: 63
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: trackedMoves.Array.data[13].Elmos.Array.data[1]
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 991076349, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
+      propertyPath: turnHandler
       value: 
       objectReference: {fileID: 303281547}
     - target: {fileID: 1393448536, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
@@ -815,5 +1171,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 991076348, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 91bd8330b33426a4bbdfbc5c2e781721, type: 3}
