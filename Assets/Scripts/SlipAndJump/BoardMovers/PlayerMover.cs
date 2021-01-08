@@ -25,7 +25,7 @@ namespace SlipAndJump.BoardMovers {
         public void Turn(bool ccw) {
             onPreRotate.Invoke(ccw);
 
-            MapDirections next = DirectionHelpers.GetNeighbor(facing, ccw);
+            MapDirections next = facing.GetNeighbor( ccw);
             facing = next;
             StartCoroutine(RotateLerp(ccw ? -1 : 1));
             // transform.Rotate(Vector3.up, ccw ? -90 : 90);

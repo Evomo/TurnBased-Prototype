@@ -104,11 +104,11 @@ namespace SlipAndJump.BoardMovers.Enemies {
             if (--hitpoints > 0) {
                 int nextRotSteps = 0;
                 if (bounceDir == BounceType.Reflect) {
-                    facing = DirectionHelpers.Inverse(facing);
+                    facing = facing.Inverse();
                     nextRotSteps = 2;
                 }
                 else {
-                    facing = DirectionHelpers.GetNeighbor(facing, bounceDir == BounceType.Left);
+                    facing = facing.GetNeighbor(bounceDir == BounceType.Left);
                     nextRotSteps = bounceDir == BounceType.Left ? -1 : 1;
                 }
 

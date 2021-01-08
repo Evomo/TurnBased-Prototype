@@ -32,9 +32,8 @@ namespace SlipAndJump.BoardMovers {
                 Vector2Int coordinates = bn.Coordinates;
                 foreach (MovementOptions currentMovement in movementPattern.moves) {
                     Vector2Int delta = currentMovement == MovementOptions.Forward
-                        ? DirectionHelpers.DirectionsDelta(facing)
-                        : DirectionHelpers.DirectionsDelta(DirectionHelpers.GetNeighbor(facing,
-                            currentMovement == MovementOptions.Left));
+                        ? facing.DirectionsDelta()
+                        : facing.GetNeighbor(currentMovement == MovementOptions.Left).DirectionsDelta();
 
                     coordinates = coordinates + delta;
                     tmpNext = Board.GetPlatform(coordinates);

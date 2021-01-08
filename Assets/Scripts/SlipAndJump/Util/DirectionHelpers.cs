@@ -10,12 +10,12 @@ namespace SlipAndJump.Util {
 
     public static class DirectionHelpers {
 
-        public static MapDirections GetNeighbor(MapDirections current, bool ccw) {
+        public static MapDirections GetNeighbor(this MapDirections current, bool ccw) {
             int next = ((int) current + (ccw ? -1 : +1) + 4) % 4;
             return (MapDirections) (next);
         }
 
-        public static Vector2Int DirectionsDelta(MapDirections direction) {
+        public static Vector2Int DirectionsDelta(this MapDirections direction) {
             Vector2Int toReturn = Vector2Int.zero;
             switch (direction) {
                 case MapDirections.North:
@@ -36,7 +36,7 @@ namespace SlipAndJump.Util {
             return toReturn;
         }
 
-        public static MapDirections Inverse(MapDirections current) {
+        public static MapDirections Inverse(this MapDirections current) {
             return (MapDirections) (((int) current + 2 + 4) % 4);
         }
     }

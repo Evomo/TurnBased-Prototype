@@ -20,7 +20,7 @@ namespace SlipAndJump.Board.Camera {
             _shouldAutoRotate = !_shouldAutoRotate;
                 if (_shouldAutoRotate) {
                     float start = path.m_Position;
-                    float end = (float)DirectionHelpers.Inverse(_player.facing);
+                    float end = (float)_player.facing.Inverse();
                     StartCoroutine(UpdatePathPosition(start , end)); 
             }
         }
@@ -28,12 +28,12 @@ namespace SlipAndJump.Board.Camera {
         void Start() {
             _player = GetComponent<PlayerMover>();
             _player.onPreRotate.AddListener(ccw => AutoRotate(ccw));
-            path.m_Position = (float)DirectionHelpers.Inverse(_player.facing);
+            path.m_Position = (float)_player.facing.Inverse();
         }
 
         public void AutoRotate(bool ccw) {
             if (_shouldAutoRotate) {
-                float start = (float)DirectionHelpers.Inverse(_player.facing);
+                float start = (float)_player.facing.Inverse();
                 float end = start + (ccw ? -1 : 1);
                 StartCoroutine(UpdatePathPosition(start , end));
             }
