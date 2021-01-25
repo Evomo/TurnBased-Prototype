@@ -90,14 +90,18 @@ namespace SlipAndJump.Board {
             Transform parent = pgo.transform;
             parent.parent = transform;
             parent.name = "Platform Nodes";
+            int idx = 0;
             for (int x = 0; x < mapSize; x++) {
                 Platforms[x] = new PlatformNode[mapSize];
                 for (int y = 0; y < mapSize; y++) {
+                    idx++;
                     PlatformNode board = Instantiate(boardPrefab, parent, true);
                     board.transform.position = new Vector3(x * spacing, transform.position.y, y * spacing);
                     board.transform.name = $"Node: {x}-{y}";
                     board.Coordinates = new Vector2Int(x, y);
+                    board.SetColor(idx % 2 == 0 ? Color.white : Color.black);
                     Platforms[x][y] = board;
+                    
                 }
             }
         }
