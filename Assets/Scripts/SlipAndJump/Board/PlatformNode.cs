@@ -10,7 +10,7 @@ namespace SlipAndJump.Board {
         }
 
         private Vector2Int _coordinates;
-        private static readonly int ShaderColor = Shader.PropertyToID("_Color");
+        private static readonly int ShaderColor = Shader.PropertyToID("_BaseColor");
 
         public void Awake() {
             _renderer = GetComponentInChildren<MeshRenderer>();
