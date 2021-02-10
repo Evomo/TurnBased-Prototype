@@ -15,8 +15,8 @@ MonoBehaviour:
   fakeDeviceId: global
   debugMovement:
   - name: duck
-    keycode: 0
-    delay: 0.5
+    keycode: 115
+    delay: 0
     val: 90
   - name: hop_single
     keycode: 119
@@ -63,4 +63,4 @@ MonoBehaviour:
     keycode: 0
     delay: 0.5
     val: 196
-  lastSuccesfulInput: 3.7275398
+  lastSuccesfulInput: 21.109266

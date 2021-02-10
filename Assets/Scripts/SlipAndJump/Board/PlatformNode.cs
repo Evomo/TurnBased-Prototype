@@ -1,9 +1,13 @@
+using SlipAndJump.BoardMovers;
 using SlipAndJump.Collectables;
 using UnityEngine;
 
 namespace SlipAndJump.Board {
+
     public class PlatformNode : BoardNode {
+        
         private MeshRenderer _renderer;
+        private PlayerMover _markedBy;
         public override Vector2Int Coordinates {
             get { return _coordinates; }
             set { _coordinates = value; }
@@ -23,6 +27,11 @@ namespace SlipAndJump.Board {
         public Collectable Spawn(Collectable prefab) {
             Collectable c = Instantiate(prefab);
             return c.Spawn(this);
+        }
+        
+        public void PlayerInteraction(PlayerMover playerMover) {
+            _markedBy = playerMover;
+            SetColor(playerMover.color);
         }
     }
 }

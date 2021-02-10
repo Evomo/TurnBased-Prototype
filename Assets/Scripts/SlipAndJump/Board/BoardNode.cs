@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SlipAndJump.BoardMovers;
+using UnityEngine;
 
 namespace SlipAndJump.Board {
     public class BoardNode : MonoBehaviour {
@@ -8,5 +9,8 @@ namespace SlipAndJump.Board {
             get { return new Vector2Int(-1, -1); }
             set {}
         }
+
+
+
     }
 }

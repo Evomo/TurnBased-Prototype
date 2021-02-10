@@ -10,7 +10,7 @@ using UnityEngine;
 namespace SlipAndJump {
     public class PlayerController : MotionAIController {
         public PlayerMover player;
-        
+
         [SerializeField] private TurnHandler turnHandler;
 
 
@@ -35,10 +35,15 @@ namespace SlipAndJump {
                     case MovementEnum.hop_single:
                         toEnqueue = player.Move;
                         break;
+                    case MovementEnum.duck:
+                        toEnqueue = player.InteractWithPlatform;
+                        break;
                 }
 
-                turnHandler.EnqueueCommand(new ActionCommand(toEnqueue));
-                turnHandler.ProcessTurn();
+                if (!turnHandler.processingTurn) {
+                    turnHandler.EnqueueCommand(new ActionCommand(toEnqueue), TurnType.Player);
+                    turnHandler.ProcessTurn();
+                }
             }
         }
     }

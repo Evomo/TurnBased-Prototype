@@ -9,43 +9,60 @@ using SlipAndJump.Commands;
 using UnityEngine;
 
 namespace SlipAndJump.Board {
+    public enum TurnType {
+        Player,
+        Enemy
+    }
+
     [DisallowMultipleComponent]
     [RequireComponent(typeof(MapBoard))]
     [RequireComponent(typeof(SpawnerManager))]
     public class TurnHandler : Singleton<TurnHandler> {
-        private Queue<ICommand> _commandBuffer;
+        private Queue<ICommand> _playerBuffer, _enemyBuffer, _currentBuffer;
         private MapBoard _board;
         private SpawnerManager _spawnerManager;
+        public bool processingTurn;
         [Range(0.1f, .5f)] public float turnDuration = 0.5f;
         public int turnNumber;
 
         private void Awake() {
-            _commandBuffer = new Queue<ICommand>();
+            _playerBuffer = new Queue<ICommand>();
+            _enemyBuffer = new Queue<ICommand>();
             _board = GetComponent<MapBoard>();
             _spawnerManager = GetComponent<SpawnerManager>();
         }
 
 
-        public void EmptyQueue() {
-            while (_commandBuffer.Count > 0) {
+        private IEnumerator EmptyQueue(TurnType bufferIdx = TurnType.Enemy) {
+            _currentBuffer = bufferIdx == TurnType.Player ? _playerBuffer : _enemyBuffer;
+            while (_currentBuffer.Count > 0) {
                 try {
-                    ICommand c = _commandBuffer.Dequeue();
+                    ICommand c = _currentBuffer.Dequeue();
                     c.Execute();
                 }
                 catch (MissingReferenceException) { }
             }
+
+            yield return null;
         }
 
         public void ProcessTurn() {
-            EmptyQueue();
-            HandleCollisions();
+            StartCoroutine(TurnCoroutine());
+        }
+
+
+        private IEnumerator TurnCoroutine() {
+            processingTurn = true;
+            yield return StartCoroutine(EmptyQueue(TurnType.Player));
+            yield return new WaitForSeconds(turnDuration);
+            yield return StartCoroutine(EmptyQueue());
+
+            yield return StartCoroutine(CheckCollisions());
             turnNumber++;
+            processingTurn = false;
+            yield return null;
         }
 
-
-        private void HandleCollisions() {
-            StartCoroutine(CheckCollisions());
-        }
 
         private IEnumerator CheckCollisions(float depth = 1) {
             yield return new WaitForSeconds(turnDuration / depth);
@@ -63,8 +80,8 @@ namespace SlipAndJump.Board {
                     EnqueueCommand(new ActionCommand(() => _board.player.HandleCollision()));
                 }
             }
+            yield return StartCoroutine(EmptyQueue());
 
-            EmptyQueue();
 
             HashSet<Enemy> processed = new HashSet<Enemy>();
             bool enemyCollided = false;
@@ -80,8 +97,9 @@ namespace SlipAndJump.Board {
                 }
             }
 
-            bool shouldWait = _commandBuffer.Count > 0;
-            EmptyQueue();
+            bool shouldWait = _playerBuffer.Count > 0;
+            yield return StartCoroutine(EmptyQueue());
+
             if (shouldWait) {
                 yield return new WaitForSeconds(turnDuration);
             }
@@ -94,9 +112,14 @@ namespace SlipAndJump.Board {
             }
         }
 
-        public void EnqueueCommand(ICommand command) {
+        public void EnqueueCommand(ICommand command, TurnType t = TurnType.Enemy) {
             if (command != null) {
-                _commandBuffer.Enqueue(command);
+                if (t == TurnType.Player) {
+                    _playerBuffer.Enqueue(command);
+                }
+                else {
+                    _enemyBuffer.Enqueue(command);
+                }
             }
         }
     }

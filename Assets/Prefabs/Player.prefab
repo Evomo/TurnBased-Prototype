@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6086525737437587010}
   - component: {fileID: 8387908807302011052}
-  - component: {fileID: 991076348}
   - component: {fileID: 991076349}
   - component: {fileID: 991076350}
   - component: {fileID: 1393448537}
   - component: {fileID: 1393448536}
+  - component: {fileID: 227979813}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -91,77 +91,7 @@ MonoBehaviour:
   onPreRotate:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &991076348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 404255616535765813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19fed6399e9798546836c680840c69af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  modelType: 1
-  moves:
-    duck:
-      name: duck
-      id: 90
-      onMove:
-        m_PersistentCalls:
-          m_Calls: []
-      Elmos: 2b0000002c000000
-    hop_single:
-      name: hop_single
-      id: 115
-      onMove:
-        m_PersistentCalls:
-          m_Calls: []
-      Elmos: 540000005b000000
-    turn_90_right:
-      name: turn_90_right
-      id: 101
-      onMove:
-        m_PersistentCalls:
-          m_Calls: []
-      Elmos: c6000000
-    turn_90_left:
-      name: turn_90_left
-      id: 102
-      onMove:
-        m_PersistentCalls:
-          m_Calls: []
-      Elmos: c5000000
-    turn_90:
-      name: turn_90
-      id: 103
-      onMove:
-        m_PersistentCalls:
-          m_Calls: []
-      Elmos: c4000000
-    side_step:
-      name: side_step
-      id: 106
-      onMove:
-        m_PersistentCalls:
-          m_Calls: []
-      Elmos: a9000000ae000000
-    side_step_left:
-      name: side_step_left
-      id: 110
-      onMove:
-        m_PersistentCalls:
-          m_Calls: []
-      Elmos: ab000000aa000000
-    side_step_right:
-      name: side_step_right
-      id: 111
-      onMove:
-        m_PersistentCalls:
-          m_Calls: []
-      Elmos: ac000000ad000000
-  meta: {}
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &991076349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +104,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3991b2e859480ebf774d0703c337d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackedMoves: []
+  trackedMoves:
+  - name: duck
+    id: 90
+    onMove:
+      m_PersistentCalls:
+        m_Calls: []
+    Elmos: 2b0000002c000000
+  - name: hop_single
+    id: 115
+    onMove:
+      m_PersistentCalls:
+        m_Calls: []
+    Elmos: 540000005b000000
+  - name: turn_90_right
+    id: 101
+    onMove:
+      m_PersistentCalls:
+        m_Calls: []
+    Elmos: c6000000
+  - name: turn_90_left
+    id: 102
+    onMove:
+      m_PersistentCalls:
+        m_Calls: []
+    Elmos: c5000000
   controllerSettings:
     isPaired: 0
     deviceId: 
@@ -183,9 +137,9 @@ MonoBehaviour:
   modelManager:
     chosenModel:
       GuidAssignmentFailed: 0
-      GUID: 19fed6399e9798546836c680840c69af
-      _typeNameAndAssembly: MotionAI.Core.Models.Generated.Subway_Surfer, MotionAI.Core
-    modelComponent: {fileID: 991076348}
+      GUID: 938234cb1e99b7f4480b31e8c16e6aaf
+      _typeNameAndAssembly: MotionAI.Core.Models.Generated.Hdtt, MotionAI.Core
+    modelComponent: {fileID: 227979813}
   onEvoMovement:
     m_PersistentCalls:
       m_Calls: []
@@ -230,7 +184,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: {fileID: 0}
-  _shouldAutoRotate: 0
+  _shouldAutoRotate: 1
+--- !u!114 &227979813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404255616535765813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938234cb1e99b7f4480b31e8c16e6aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelType: 0
+  moves:
+    duck:
+      name: duck
+      id: 90
+      onMove:
+        m_PersistentCalls:
+          m_Calls: []
+      Elmos: 2b0000002c000000
+    hop_single:
+      name: hop_single
+      id: 115
+      onMove:
+        m_PersistentCalls:
+          m_Calls: []
+      Elmos: 540000005b000000
+    turn_90_right:
+      name: turn_90_right
+      id: 101
+      onMove:
+        m_PersistentCalls:
+          m_Calls: []
+      Elmos: c6000000
+    turn_90_left:
+      name: turn_90_left
+      id: 102
+      onMove:
+        m_PersistentCalls:
+          m_Calls: []
+      Elmos: c5000000
+    turn_90:
+      name: turn_90
+      id: 103
+      onMove:
+        m_PersistentCalls:
+          m_Calls: []
+      Elmos: c4000000
+  meta: {}
 --- !u!1001 &6541601673382882889
 PrefabInstance:
   m_ObjectHideFlags: 0
