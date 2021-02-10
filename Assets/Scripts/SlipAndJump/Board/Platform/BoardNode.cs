@@ -1,7 +1,6 @@
-﻿using SlipAndJump.BoardMovers;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SlipAndJump.Board {
+namespace SlipAndJump.Board.Platform {
     public class BoardNode : MonoBehaviour {
         public Transform landingPosition;
 

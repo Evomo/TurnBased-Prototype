@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cinemachine;
+using SlipAndJump.Board.Platform;
 using SlipAndJump.Util;
 using UnityEngine;
 

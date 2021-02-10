@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using SlipAndJump.Board;
+using SlipAndJump.Board.Platform;
 using SlipAndJump.Board.Spawner;
 using SlipAndJump.Commands;
 using SlipAndJump.Util;
@@ -15,8 +16,7 @@ namespace SlipAndJump.BoardMovers.Enemies {
     }
 
     public class Enemy : BaseMover, ISpawnable<Enemy> {
-        public int hitpoints = 5;
-        private int _rotationSteps = 0;
+        private int _rotationSteps;
         public float collisionDepth = 1;
 
         [Tooltip("Should the enemy get the inverse direction or its neighbor?")]

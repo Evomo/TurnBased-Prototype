@@ -1,21 +1,28 @@
 ﻿using System.Collections;
 using SlipAndJump.Board;
+using SlipAndJump.Board.Platform;
 using SlipAndJump.Commands;
 using SlipAndJump.Util;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SlipAndJump.BoardMovers {
+    public class NodeChangeEvent : UnityEvent<PlatformNode>{};
+
     public abstract class BaseMover : BoardEntity {
+        public int hitpoints = 5;
         public MovementPattern movementPattern;
         public AnimationCurve curve;
         public MapDirections facing;
         public PlatformNode next;
-
+        public NodeChangeEvent onNodeChange;
         [Range(2, 5)] public float jumpHeight = 0;
         public bool canMove;
         protected float JumpDuration;
 
+
         public virtual void Start() {
+            onNodeChange = new NodeChangeEvent();
             JumpDuration = TurnHandler.Instance.turnDuration;
             Board.onTurn.AddListener(() => canMove = true);
         }
@@ -49,13 +56,13 @@ namespace SlipAndJump.BoardMovers {
             if (tmpNext) {
                 StartCoroutine(JumpTo(tmpNext));
                 currentNode = tmpNext;
+                onNodeChange.Invoke(tmpNext);
             }
         }
 
-        public virtual void HandleCollision() {
-            //TODO
-            Debug.Log("Collided ");
-        }
+        
+        //Collision with enemy 
+        public abstract void HandleCollision();
 
         #region Movement Helpers
 

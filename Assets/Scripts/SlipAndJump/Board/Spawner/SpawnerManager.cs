@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MotionAI.Core.Util;
+using SlipAndJump.Board.Platform;
 using SlipAndJump.BoardMovers.Enemies;
 using SlipAndJump.Collectables;
 using UnityEngine;

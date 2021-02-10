@@ -1,4 +1,5 @@
 ﻿using System;
+using SlipAndJump.Board.Platform;
 using UnityEngine;
 
 namespace SlipAndJump.Board {

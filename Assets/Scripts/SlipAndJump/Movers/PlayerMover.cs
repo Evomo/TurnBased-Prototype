@@ -1,5 +1,6 @@
 ﻿using System;
 using SlipAndJump.Board;
+using SlipAndJump.Board.Platform;
 using SlipAndJump.Util;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,6 +11,7 @@ namespace SlipAndJump.BoardMovers {
 
     public class PlayerMover : BaseMover {
         private int _score;
+        [HideInInspector]
         public RotateEvent onPreRotate;
         public Color color;
         public int Score {
@@ -22,7 +24,13 @@ namespace SlipAndJump.BoardMovers {
             canMove = true;
             currentNode = Board.StartNode;
             transform.position = currentNode.landingPosition.position;
+            onNodeChange.AddListener((node) => InteractWithNode(node));
         }
+
+        private void InteractWithNode(PlatformNode node) {
+            node.ActivateSpecialEffect(this);
+        }
+
 
         public void Turn(bool ccw) {
             onPreRotate.Invoke(ccw);
@@ -35,8 +43,15 @@ namespace SlipAndJump.BoardMovers {
 
         public void InteractWithPlatform() {
             if (currentNode is PlatformNode) {
-                ((PlatformNode) currentNode).PlayerInteraction(this);
+                ((PlatformNode) currentNode).MarkPlatform(this);
             }
+        }
+        
+        
+        //Collision with enemy 
+        public override void HandleCollision() {
+            //TODO
+            Debug.Log("Collided ");
         }
     }
 }

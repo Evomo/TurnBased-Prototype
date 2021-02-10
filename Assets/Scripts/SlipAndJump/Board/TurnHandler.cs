@@ -56,7 +56,6 @@ namespace SlipAndJump.Board {
             yield return StartCoroutine(EmptyQueue(TurnType.Player));
             yield return new WaitForSeconds(turnDuration);
             yield return StartCoroutine(EmptyQueue());
-
             yield return StartCoroutine(CheckCollisions());
             turnNumber++;
             processingTurn = false;

@@ -1,5 +1,6 @@
 ﻿using System;
 using SlipAndJump.Board;
+using SlipAndJump.Board.Platform;
 using SlipAndJump.Board.Spawner;
 using SlipAndJump.BoardMovers;
 using SlipAndJump.Commands;
