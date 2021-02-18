@@ -20,6 +20,7 @@ namespace SlipAndJump.Board {
     public class TurnHandler : Singleton<TurnHandler> {
         private Queue<ICommand> _playerBuffer, _enemyBuffer, _currentBuffer;
         private MapBoard _board;
+        private ProxyBoard _proxyBoard;
         private SpawnerManager _spawnerManager;
         public bool processingTurn;
         [Range(0.1f, .5f)] public float turnDuration = 0.5f;
@@ -29,6 +30,7 @@ namespace SlipAndJump.Board {
             _playerBuffer = new Queue<ICommand>();
             _enemyBuffer = new Queue<ICommand>();
             _board = GetComponent<MapBoard>();
+            _proxyBoard = new ProxyBoard(_board.mapSize);
             _spawnerManager = GetComponent<SpawnerManager>();
         }
 
@@ -57,11 +59,25 @@ namespace SlipAndJump.Board {
             yield return new WaitForSeconds(turnDuration);
             yield return StartCoroutine(EmptyQueue());
             yield return StartCoroutine(CheckCollisions());
+            yield return StartCoroutine(SimulateNext());
             turnNumber++;
             processingTurn = false;
             yield return null;
         }
 
+
+        private IEnumerator SimulateNext() {
+            _proxyBoard.Clear();
+            foreach (Enemy enemy in _spawnerManager.Enemies) {
+                if (enemy.next != null) {
+                _proxyBoard.Mark(enemy.next.Coordinates);
+                    
+                }
+            }
+
+            _board.HighlightFromProxy(_proxyBoard);
+            yield return null;
+        }
 
         private IEnumerator CheckCollisions(float depth = 1) {
             yield return new WaitForSeconds(turnDuration / depth);
@@ -79,6 +95,7 @@ namespace SlipAndJump.Board {
                     EnqueueCommand(new ActionCommand(() => _board.player.HandleCollision()));
                 }
             }
+
             yield return StartCoroutine(EmptyQueue());
 
 

@@ -114,5 +114,15 @@ namespace SlipAndJump.Board {
                 return null;
             }
         }
+
+        public void HighlightFromProxy(ProxyBoard proxy) {
+                for (int i = 0; i < proxy.Length; i++) {
+                    for (int j = 0; j < proxy.Length; j++) {
+
+                        PlatformNode b = Platforms[i][j]; 
+                        b.Highlight(proxy[i][j]);
+                    }
+            }
+        }
     }
 }

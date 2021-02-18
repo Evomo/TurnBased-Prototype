@@ -1,13 +1,16 @@
 using System;
 using SlipAndJump.BoardMovers;
 using SlipAndJump.Collectables;
+using SlipAndJump.Util;
 using UnityEngine;
 
 namespace SlipAndJump.Board.Platform {
     public class PlatformNode : BoardNode {
-        private MeshRenderer _renderer;
         private PlayerMover _markedBy;
-        public PlatformEffects effect;
+
+        [SerializeField] private Material otherMaterial;
+        private MaterialSwitcher _materialSwitcher;
+        private PlatformEffects _effect;
         private ParticleSystem ps;
 
         #region Effects
@@ -20,15 +23,14 @@ namespace SlipAndJump.Board.Platform {
         }
 
         private Vector2Int _coordinates;
-        private static readonly int ShaderColor = Shader.PropertyToID("_BaseColor");
 
         public void Awake() {
-            _renderer = GetComponentInChildren<MeshRenderer>();
+        _materialSwitcher = new MaterialSwitcher(gameObject, otherMaterial);
         }
 
 
         public void SetEffect(PlatformEffects e) {
-            effect = e;
+            _effect = e;
 
             if (ps != null) {
                 ps.Stop();
@@ -40,12 +42,7 @@ namespace SlipAndJump.Board.Platform {
                 ps.Play();
             }
         }
-
-
-        public void SetColor(Color color) {
-            _renderer.material.SetColor(ShaderColor, color);
-        }
-
+        
         public Collectable Spawn(Collectable prefab) {
             Collectable c = Instantiate(prefab);
             return c.Spawn(this);
@@ -53,12 +50,15 @@ namespace SlipAndJump.Board.Platform {
 
         public void MarkPlatform(PlayerMover playerMover) {
             _markedBy = playerMover;
-            SetColor(playerMover.color);
+            _materialSwitcher.ChangeOriginalMaterialColor(playerMover.color);
         }
 
+        public void Highlight(bool isMarked) {
+            _materialSwitcher.ApplyMaterial(isMarked);
+        }
         public void ActivateSpecialEffect(PlayerMover mover) {
-            if (effect != null) {
-                effect.DoEffect(this, mover);
+            if (_effect != null) {
+                _effect.DoEffect(this, mover);
             }
         }
     }

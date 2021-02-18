@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   landingPosition: {fileID: 6542018470306063011}
+  otherMaterial: {fileID: 2100000, guid: 781119674fe594624baf38b26196cd19, type: 2}
+  effect: {fileID: 0}
 --- !u!1 &8295217795004985714
 GameObject:
   m_ObjectHideFlags: 0
