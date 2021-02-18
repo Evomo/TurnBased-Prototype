@@ -96,7 +96,6 @@ namespace SlipAndJump.BoardMovers {
         }
 
         protected IEnumerator RotateLerp(int cwSteps) {
-            canMove = false;
             float time = 0f;
             Quaternion start = transform.rotation;
             Quaternion end = start * Quaternion.Euler(0, cwSteps * 90, 0);
@@ -113,7 +112,6 @@ namespace SlipAndJump.BoardMovers {
                 yield return null;
             }
 
-            // canMove = true;
         }
 
         #endregion

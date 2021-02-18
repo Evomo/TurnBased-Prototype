@@ -13,24 +13,15 @@ namespace SlipAndJump {
 
         [SerializeField] private TurnHandler turnHandler;
 
-
-        public void TurnLeft() {
-            player.Turn(true);
-        }
-
-        public void TurnRight() {
-            player.Turn(false);
-        }
-
         protected override void HandleMovement(EvoMovement msg) {
             if (player.canMove) {
                 Action toEnqueue = null;
                 switch (msg.typeID) {
                     case MovementEnum.turn_90_left:
-                        toEnqueue = TurnLeft;
+                        player.Turn(true);
                         break;
                     case MovementEnum.turn_90_right:
-                        toEnqueue = TurnRight;
+                        player.Turn(false);
                         break;
                     case MovementEnum.hop_single:
                         toEnqueue = player.Move;
@@ -40,7 +31,8 @@ namespace SlipAndJump {
                         break;
                 }
 
-                if (!turnHandler.processingTurn) {
+
+                if (!turnHandler.processingTurn && toEnqueue != null) {
                     turnHandler.EnqueueCommand(new ActionCommand(toEnqueue), TurnType.Player);
                     turnHandler.ProcessTurn();
                 }
